@@ -8,7 +8,7 @@ class Page {
 
 	private $tpl;
 	private $options = [];
-	private $defaults = [
+	private $defaults = [ // padrão
 		"header"=>true,
 		"footer"=>true,
 		"data"=>[]
