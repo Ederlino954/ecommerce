@@ -42,7 +42,7 @@ $app->get('/admin/logout', function() {
 
 });
 
-$app->get("/admin/forgot", function() {
+$app->get("/admin/forgot", function() { // caminho para alteração de senha 
 
 	$page = new PageAdmin([
 		"header"=>false,
@@ -55,7 +55,7 @@ $app->get("/admin/forgot", function() {
 
 $app->post("/admin/forgot", function(){
 
-	$user = User::getForgot($_POST["email"]);
+	$user = User::getForgot($_POST["email"]); /// no model User
 
 	header("Location: /admin/forgot/sent");
 	exit;

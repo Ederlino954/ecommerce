@@ -4,11 +4,11 @@ namespace Hcode;
 
 use Rain\Tpl;
 
-class Mailer {
+class Mailer { // atualizar para teste
 	
-	const USERNAME = "cursophp7hcode@gmail.com";
-	const PASSWORD = "<?password?>";
-	const NAME_FROM = "Hcode Store";
+	const USERNAME = "cursophp7hcode@gmail.com"; // atualizar para teste
+	const PASSWORD = "<?password?>"; // atualizar para teste
+	const NAME_FROM = "Hcode Store"; // atualizar para teste
 
 	private $mail;
 
@@ -25,13 +25,13 @@ class Mailer {
 
 		$tpl = new Tpl;
 
-		foreach ($data as $key => $value) {
+		foreach ($data as $key => $value) { // criandoas variaveis dentro do template 
 			$tpl->assign($key, $value);
 		}
 
-		$html = $tpl->draw($tplName, true);
+		$html = $tpl->draw($tplName, true); /// true par ajogar dentro da variável 
 
-		$this->mail = new \PHPMailer;
+		$this->mail = new \PHPMailer; // contra barra para achar a classe 
 
 		//Tell PHPMailer to use SMTP
 		$this->mail->isSMTP();
@@ -61,13 +61,13 @@ class Mailer {
 		$this->mail->SMTPAuth = true;
 
 		//Username to use for SMTP authentication - use full email address for gmail
-		$this->mail->Username = Mailer::USERNAME;
+		$this->mail->Username = Mailer::USERNAME; // constante acima-------------------------------
 
 		//Password to use for SMTP authentication
-		$this->mail->Password = Mailer::PASSWORD;
+		$this->mail->Password = Mailer::PASSWORD; // constante acima-------------------------------
 
 		//Set who the message is to be sent from
-		$this->mail->setFrom(Mailer::USERNAME, Mailer::NAME_FROM);
+		$this->mail->setFrom(Mailer::USERNAME, Mailer::NAME_FROM); // constante acima--------------
 
 		//Set an alternative reply-to address
 		//$this->mail->addReplyTo('replyto@example.com', 'First Last');

@@ -130,10 +130,10 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public function save()
+	public function save() // cadastrando usuários 
 	{
 
-		$sql = new Sql();
+		$sql = new Sql(); //ultilizando procedure CALL, por se mais rapido e necessita uma requisição.
 
 		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
 			":desperson"=>utf8_decode($this->getdesperson()),
@@ -169,7 +169,7 @@ class User extends Model {
 	public function update()
 	{
 
-		$sql = new Sql();
+		$sql = new Sql(); //ultilizando procedure CALL, por se mais rapido e necessita uma requisição.
 
 		$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
 			":iduser"=>$this->getiduser(),
@@ -188,7 +188,7 @@ class User extends Model {
 	public function delete()
 	{
 
-		$sql = new Sql();
+		$sql = new Sql(); //ultilizando procedure CALL, por se mais rapido e necessita uma requisição.
 
 		$sql->query("CALL sp_users_delete(:iduser)", array(
 			":iduser"=>$this->getiduser()
@@ -210,7 +210,7 @@ class User extends Model {
 			":email"=>$email
 		));
 
-		if (count($results) === 0)
+		if (count($results) === 0) // se não retornar email
 		{
 
 			throw new \Exception("Não foi possível recuperar a senha.");
@@ -219,7 +219,7 @@ class User extends Model {
 		else
 		{
 
-			$data = $results[0];
+			$data = $results[0]; // usando a PROCEDURE
 
 			$results2 = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)", array(
 				":iduser"=>$data['iduser'],
@@ -243,7 +243,7 @@ class User extends Model {
 
 				if ($inadmin === true) {
 
-					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code"; 
 
 				} else {
 
@@ -251,9 +251,9 @@ class User extends Model {
 					
 				}				
 
-				$mailer = new Mailer($data['desemail'], $data['desperson'], "Redefinir senha da Hcode Store", "forgot", array(
-					"name"=>$data['desperson'],
-					"link"=>$link
+				$mailer = new Mailer($data['desemail'], $data['desperson'], "Redefinir senha da Hcode Store", "forgot", array(// "forgot" dentro de views/email/
+					"name"=>$data['desperson'], // variavel dentro de forgot no email
+					"link"=>$link // variavel dentro de forgot no email
 				));				
 
 				$mailer->send();
@@ -266,7 +266,7 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public static function validForgotDecrypt($code)
+	public static function validForgotDecrypt($code) // naclasse ssmtp do phpmailaer desabilitei um if na linha 368 para teste
 	{
 
 		$code = base64_decode($code);
@@ -313,7 +313,7 @@ class User extends Model {
 		));
 
 	}
-
+	// =================================================================================================================
 	public function setPassword($password)
 	{
 

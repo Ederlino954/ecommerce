@@ -361,14 +361,14 @@ class SMTP
             $crypto_method |= STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
         }
 
-        // Begin encrypted connection
-        if (!stream_socket_enable_crypto(
-            $this->smtp_conn,
-            true,
-            $crypto_method
-        )) {
-            return false;
-        }
+        // Begin encrypted connection /// teste ------------------ desabilitei por causa do SSL para teste-------------------
+        // if (!stream_socket_enable_crypto(
+        //     $this->smtp_conn,
+        //     true,
+        //     $crypto_method
+        // )) {
+        //     return false;
+        // }
         return true;
     }
 
