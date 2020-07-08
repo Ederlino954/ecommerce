@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>{$category.descategory}</h2>
+                    <h2>{$category.descategory}</h2> <!-- variável e coluna - dado dinâmico -->
                 </div>
             </div>
         </div>
@@ -14,13 +14,13 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            {loop="$products"}
+            {loop="$products"}  <!-- início -->
             <div class="col-md-3 col-sm-6">
                 <div class="single-shop-product">
                     <div class="product-upper">
                         <img src="{$value.desphoto}" alt="">
                     </div>
-                    <h2><a href="/products/{$value.desurl}">{$value.desproduct}</a></h2>
+                    <h2><a href="/products/{$value.desurl}">{$value.desproduct}</a></h2> <!-- dado dinâmico -->
                     <div class="product-carousel-price">
                         <ins>R${function="formatPrice($value.vlprice)"}</ins>
                     </div>
@@ -30,7 +30,7 @@
                     </div>                       
                 </div>
             </div>
-            {/loop}
+            {/loop} <!-- fim -->
             
         </div>
         
@@ -40,7 +40,7 @@
                     <nav>
                         <ul class="pagination">
                         {loop="$pages"}
-                        <li><a href="{$value.link}">{$value.page}</a></li>
+                        <li><a href="{$value.link}">{$value.page}</a></li>  <!-- dado dinâmico -->
                         {/loop}
                         </ul>
                     </nav>                        
@@ -49,3 +49,5 @@
         </div>
     </div>
 </div>
+
+<!-- dado dinâmico -->

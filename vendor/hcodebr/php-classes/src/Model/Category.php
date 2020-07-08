@@ -59,7 +59,7 @@ class Category extends Model {
 
 	}
 	//=======================================================================================================
-	public static function updateFile()
+	public static function updateFile() // atualizando o arquivo categories-menu.html
 	{
 
 		$categories = Category::listAll();
@@ -70,7 +70,7 @@ class Category extends Model {
 			array_push($html, '<li><a href="/categories/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>');
 		}
 
-		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));// implode transformando o array em string
 
 	}
 	//=======================================================================================================

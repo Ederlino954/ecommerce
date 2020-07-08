@@ -7,7 +7,7 @@ use \Hcode\Model;
 use \Hcode\Mailer;
 
 class Product extends Model {
-
+	//====================================================================================================================================================
 	public static function listAll()
 	{
 
@@ -16,7 +16,7 @@ class Product extends Model {
 		return $sql->select("SELECT * FROM tb_products ORDER BY desproduct");
 
 	}
-
+	//====================================================================================================================================================
 	public static function checkList($list)
 	{
 
@@ -31,7 +31,7 @@ class Product extends Model {
 		return $list;
 
 	}
-
+	//====================================================================================================================================================
 	public function save()
 	{
 
@@ -51,7 +51,7 @@ class Product extends Model {
 		$this->setData($results[0]);
 
 	}
-
+	//====================================================================================================================================================
 	public function get($idproduct)
 	{
 
@@ -64,7 +64,7 @@ class Product extends Model {
 		$this->setData($results[0]);
 
 	}
-
+	//====================================================================================================================================================
 	public function delete()
 	{
 
@@ -75,11 +75,11 @@ class Product extends Model {
 		]);
 
 	}
-
+	//====================================================================================================================================================
 	public function checkPhoto()
 	{
 
-		if (file_exists(
+		if (file_exists( // Caminho das imagens // sistema operacioanal
 			$_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
 			"res" . DIRECTORY_SEPARATOR . 
 			"site" . DIRECTORY_SEPARATOR . 
@@ -88,34 +88,34 @@ class Product extends Model {
 			$this->getidproduct() . ".jpg"
 			)) {
 
-			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
+			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg"; // url
 
 		} else {
 
-			$url = "/res/site/img/product.jpg";
+			$url = "/res/site/img/product.jpg"; // foto padrão retornada 
 
 		}
 
-		return $this->setdesphoto($url);
+		return $this->setdesphoto($url); // purl existindo evitando erro 
 
 	}
-
+	//====================================================================================================================================================
 	public function getValues()
 	{
 
 		$this->checkPhoto();
 
-		$values = parent::getValues();
+		$values = parent::getValues(); // no model, classa pai 
 
 		return $values;
 
 	}
-
-	public function setPhoto($file)
+	//====================================================================================================================================================
+	public function setPhoto($file) // upload do arquivo
 	{
 
-		$extension = explode('.', $file['name']);
-		$extension = end($extension);
+		$extension = explode('.', $file['name']); // explodindo arquivo
+		$extension = end($extension); // pegando a ultima porte do arquivo, extensão
 
 		switch ($extension) {
 
@@ -141,14 +141,14 @@ class Product extends Model {
 			"products" . DIRECTORY_SEPARATOR . 
 			$this->getidproduct() . ".jpg";
 
-		imagejpeg($image, $dist);
+		imagejpeg($image, $dist); /// image, caminho
 
 		imagedestroy($image);
 
 		$this->checkPhoto();
 
 	}
-
+	//====================================================================================================================================================
 	public function getFromURL($desurl)
 	{
 
@@ -161,7 +161,7 @@ class Product extends Model {
 		$this->setData($rows[0]);
 
 	}
-
+	//====================================================================================================================================================
 	public function getCategories()
 	{
 
@@ -175,7 +175,7 @@ class Product extends Model {
 		]);
 
 	}
-
+	//====================================================================================================================================================
 	public static function getPage($page = 1, $itemsPerPage = 10)
 	{
 
@@ -199,7 +199,7 @@ class Product extends Model {
 		];
 
 	}
-
+	//====================================================================================================================================================
 	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
 	{
 

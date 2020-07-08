@@ -3,7 +3,7 @@
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 use \Hcode\Model\Product;
-
+// ================================================================================================================
 $app->get("/admin/products", function(){
 
 	User::verifyLogin();
@@ -47,8 +47,8 @@ $app->get("/admin/products", function(){
 	]);
 
 });
-
-$app->get("/admin/products/create", function(){
+// ================================================================================================================
+$app->get("/admin/products/create", function(){ // rota pagina de criação
 
 	User::verifyLogin();
 
@@ -57,7 +57,7 @@ $app->get("/admin/products/create", function(){
 	$page->setTpl("products-create");
 
 });
-
+// ================================================================================================================
 $app->post("/admin/products/create", function(){
 
 	User::verifyLogin();
@@ -72,8 +72,8 @@ $app->post("/admin/products/create", function(){
 	exit;
 
 });
-
-$app->get("/admin/products/:idproduct", function($idproduct){
+// ================================================================================================================
+$app->get("/admin/products/:idproduct", function($idproduct){ // editar produto
 
 	User::verifyLogin();
 
@@ -88,8 +88,8 @@ $app->get("/admin/products/:idproduct", function($idproduct){
 	]);
 
 });
-
-$app->post("/admin/products/:idproduct", function($idproduct){
+// ================================================================================================================
+$app->post("/admin/products/:idproduct", function($idproduct){ // Atualiza produto
 
 	User::verifyLogin();
 
@@ -101,14 +101,14 @@ $app->post("/admin/products/:idproduct", function($idproduct){
 
 	$product->save();
 
-	$product->setPhoto($_FILES["file"]);
+	$product->setPhoto($_FILES["file"]); // uploado do arquivo
 
 	header('Location: /admin/products');
 	exit;
 
 });
-
-$app->get("/admin/products/:idproduct/delete", function($idproduct){
+// ================================================================================================================
+$app->get("/admin/products/:idproduct/delete", function($idproduct){ // deleta produto
 
 	User::verifyLogin();
 

@@ -8,7 +8,7 @@ use \Hcode\Model\Address;
 use \Hcode\Model\User;
 use \Hcode\Model\Order;
 use \Hcode\Model\OrderStatus;
-
+// ================================================================================================================
 $app->get('/', function() {
 
 	$products = Product::listAll();
@@ -20,7 +20,7 @@ $app->get('/', function() {
 	]);
 
 });
-
+// ================================================================================================================
 $app->get("/categories/:idcategory", function($idcategory){
 
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -49,7 +49,7 @@ $app->get("/categories/:idcategory", function($idcategory){
 	]);
 
 });
-
+// ================================================================================================================
 $app->get("/products/:desurl", function($desurl){
 
 	$product = new Product();
@@ -64,7 +64,7 @@ $app->get("/products/:desurl", function($desurl){
 	]);
 
 });
-
+// ================================================================================================================
 $app->get("/cart", function(){
 
 	$cart = Cart::getFromSession();
@@ -78,7 +78,7 @@ $app->get("/cart", function(){
 	]);
 
 });
-
+// ================================================================================================================
 $app->get("/cart/:idproduct/add", function($idproduct){
 
 	$product = new Product();
@@ -99,7 +99,7 @@ $app->get("/cart/:idproduct/add", function($idproduct){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/cart/:idproduct/minus", function($idproduct){
 
 	$product = new Product();
@@ -114,7 +114,7 @@ $app->get("/cart/:idproduct/minus", function($idproduct){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/cart/:idproduct/remove", function($idproduct){
 
 	$product = new Product();
@@ -129,7 +129,7 @@ $app->get("/cart/:idproduct/remove", function($idproduct){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->post("/cart/freight", function(){
 
 	$cart = Cart::getFromSession();
@@ -140,7 +140,7 @@ $app->post("/cart/freight", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/checkout", function(){
 
 	User::verifyLogin(false);
@@ -185,7 +185,7 @@ $app->get("/checkout", function(){
 	]);
 
 });
-
+// ================================================================================================================
 $app->post("/checkout", function(){
 
 	User::verifyLogin(false);
@@ -268,7 +268,7 @@ $app->post("/checkout", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/order/:idorder/pagseguro", function($idorder){
 
 	User::verifyLogin(false);
@@ -296,7 +296,7 @@ $app->get("/order/:idorder/pagseguro", function($idorder){
 
 
 });
-
+// ================================================================================================================
 $app->get("/order/:idorder/paypal", function($idorder){
 
 	User::verifyLogin(false);
@@ -320,7 +320,7 @@ $app->get("/order/:idorder/paypal", function($idorder){
 
 
 });
-
+// ================================================================================================================
 $app->get("/login", function(){
 
 	$page = new Page();
@@ -332,7 +332,7 @@ $app->get("/login", function(){
 	]);
 
 });
-
+// ================================================================================================================
 $app->post("/login", function(){
 
 	try {
@@ -349,7 +349,7 @@ $app->post("/login", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/logout", function(){
 
 	User::logout();
@@ -358,7 +358,7 @@ $app->get("/logout", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->post("/register", function(){
 
 	$_SESSION['registerValues'] = $_POST;
@@ -414,7 +414,7 @@ $app->post("/register", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/forgot", function() {
 
 	$page = new Page();
@@ -422,7 +422,7 @@ $app->get("/forgot", function() {
 	$page->setTpl("forgot");	
 
 });
-
+// ================================================================================================================
 $app->post("/forgot", function(){
 
 	$user = User::getForgot($_POST["email"], false);
@@ -431,7 +431,7 @@ $app->post("/forgot", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/forgot/sent", function(){
 
 	$page = new Page();
@@ -439,8 +439,7 @@ $app->get("/forgot/sent", function(){
 	$page->setTpl("forgot-sent");	
 
 });
-
-
+// ================================================================================================================
 $app->get("/forgot/reset", function(){
 
 	$user = User::validForgotDecrypt($_GET["code"]);
@@ -453,7 +452,7 @@ $app->get("/forgot/reset", function(){
 	));
 
 });
-
+// ================================================================================================================
 $app->post("/forgot/reset", function(){
 
 	$forgot = User::validForgotDecrypt($_POST["code"]);	
@@ -473,7 +472,7 @@ $app->post("/forgot/reset", function(){
 	$page->setTpl("forgot-reset-success");
 
 });
-
+// ================================================================================================================
 $app->get("/profile", function(){
 
 	User::verifyLogin(false);
@@ -489,7 +488,7 @@ $app->get("/profile", function(){
 	]);
 
 });
-
+// ================================================================================================================
 $app->post("/profile", function(){
 
 	User::verifyLogin(false);
@@ -534,7 +533,7 @@ $app->post("/profile", function(){
 	exit;
 
 });
-
+// ================================================================================================================
 $app->get("/order/:idorder", function($idorder){
 
 	User::verifyLogin(false);
@@ -550,7 +549,7 @@ $app->get("/order/:idorder", function($idorder){
 	]);
 
 });
-
+// ================================================================================================================
 $app->get("/boleto/:idorder", function($idorder){
 
 	User::verifyLogin(false);
@@ -623,7 +622,7 @@ $app->get("/boleto/:idorder", function($idorder){
 	require_once($path . "layout_itau.php");
 
 });
-
+// ================================================================================================================
 $app->get("/profile/orders", function(){
 
 	User::verifyLogin(false);
@@ -637,7 +636,7 @@ $app->get("/profile/orders", function(){
 	]);
 
 });
-
+// ================================================================================================================
 $app->get("/profile/orders/:idorder", function($idorder){
 
 	User::verifyLogin(false);
@@ -661,7 +660,7 @@ $app->get("/profile/orders/:idorder", function($idorder){
 	]);	
 
 });
-
+// ================================================================================================================
 $app->get("/profile/change-password", function(){
 
 	User::verifyLogin(false);
@@ -674,7 +673,7 @@ $app->get("/profile/change-password", function(){
 	]);
 
 });
-
+// ================================================================================================================
 $app->post("/profile/change-password", function(){
 
 	User::verifyLogin(false);
