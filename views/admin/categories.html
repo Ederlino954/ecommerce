@@ -43,7 +43,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {loop="$categories"}
+                  {loop="$categories"} <!-- variável -->
                   <tr>
                     <td>{$value.idcategory}</td>
                     <td>{$value.descategory}</td>
@@ -53,7 +53,7 @@
                       <a href="/admin/categories/{$value.idcategory}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                     </td>
                   </tr>
-                  {/loop}
+                  {/loop} <!-- variável -->
                 </tbody>
               </table>
             </div>

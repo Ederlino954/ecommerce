@@ -7,7 +7,7 @@ use \Hcode\Model;
 use \Hcode\Mailer;
 
 class Category extends Model {
-
+	//=======================================================================================================
 	public static function listAll()
 	{
 
@@ -16,11 +16,11 @@ class Category extends Model {
 		return $sql->select("SELECT * FROM tb_categories ORDER BY descategory");
 
 	}
-
+	//=======================================================================================================
 	public function save()
 	{
 
-		$sql = new Sql();
+		$sql = new Sql(); // usando PROCEDURE
 
 		$results = $sql->select("CALL sp_categories_save(:idcategory, :descategory)", array(
 			":idcategory"=>$this->getidcategory(),
@@ -32,7 +32,7 @@ class Category extends Model {
 		Category::updateFile();
 
 	}
-
+	//=======================================================================================================
 	public function get($idcategory)
 	{
 
@@ -45,7 +45,7 @@ class Category extends Model {
 		$this->setData($results[0]);
 
 	}
-
+	//=======================================================================================================
 	public function delete()
 	{
 
@@ -58,7 +58,7 @@ class Category extends Model {
 		Category::updateFile();
 
 	}
-
+	//=======================================================================================================
 	public static function updateFile()
 	{
 
@@ -73,7 +73,7 @@ class Category extends Model {
 		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
 
 	}
-
+	//=======================================================================================================
 	public function getProducts($related = true)
 	{
 
@@ -108,7 +108,7 @@ class Category extends Model {
 		}
 
 	}
-
+	//=======================================================================================================
 	public function getProductsPage($page = 1, $itemsPerPage = 8)
 	{
 
@@ -136,7 +136,7 @@ class Category extends Model {
 		];
 
 	}
-
+	//=======================================================================================================
 	public function addProduct(Product $product)
 	{
 
@@ -148,7 +148,7 @@ class Category extends Model {
 		]);
 
 	}
-
+	//=======================================================================================================
 	public function removeProduct(Product $product)
 	{
 
@@ -160,7 +160,7 @@ class Category extends Model {
 		]);
 
 	}
-			
+	//=======================================================================================================		
 	public static function getPage($page = 1, $itemsPerPage = 10)
 	{
 
@@ -184,7 +184,7 @@ class Category extends Model {
 		];
 
 	}
-
+	//=======================================================================================================
 	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
 	{
 

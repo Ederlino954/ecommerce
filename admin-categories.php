@@ -4,7 +4,7 @@ use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 use \Hcode\Model\Category;
 use \Hcode\Model\Product;
-
+// =====================================================================
 $app->get("/admin/categories", function(){
 
 	User::verifyLogin();
@@ -40,54 +40,54 @@ $app->get("/admin/categories", function(){
 	$page = new PageAdmin();
 
 	$page->setTpl("categories", [
-		"categories"=>$pagination['data'],
+		"categories"=>$pagination['data'], 
 		"search"=>$search,
 		"pages"=>$pages
 	]);	
 
 
 });
-
+// =====================================================================
 $app->get("/admin/categories/create", function(){
 
 	User::verifyLogin();
 
 	$page = new PageAdmin();
 
-	$page->setTpl("categories-create");	
+	$page->setTpl("categories-create");	// para a pagina
 
 });
-
+// =====================================================================
 $app->post("/admin/categories/create", function(){
 
 	User::verifyLogin();
 
 	$category = new Category();
 
-	$category->setData($_POST);
+	$category->setData($_POST); // no Model pegando
 
-	$category->save();
+	$category->save(); // no model salvando
 
 	header('Location: /admin/categories');
 	exit;
 
 });
-
+// =====================================================================
 $app->get("/admin/categories/:idcategory/delete", function($idcategory){
 
 	User::verifyLogin();
 
 	$category = new Category();
 
-	$category->get((int)$idcategory);
+	$category->get((int)$idcategory); // carregando id
 
-	$category->delete();
+	$category->delete(); // no model
 
 	header('Location: /admin/categories');
 	exit;
 
 });
-
+// =====================================================================
 $app->get("/admin/categories/:idcategory", function($idcategory){
 
 	User::verifyLogin();
@@ -103,7 +103,7 @@ $app->get("/admin/categories/:idcategory", function($idcategory){
 	]);	
 
 });
-
+// =====================================================================
 $app->post("/admin/categories/:idcategory", function($idcategory){
 
 	User::verifyLogin();
@@ -120,7 +120,7 @@ $app->post("/admin/categories/:idcategory", function($idcategory){
 	exit;
 
 });
-
+// =====================================================================
 $app->get("/admin/categories/:idcategory/products", function($idcategory){
 
 	User::verifyLogin();
@@ -138,7 +138,7 @@ $app->get("/admin/categories/:idcategory/products", function($idcategory){
 	]);
 
 });
-
+// =====================================================================
 $app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){
 
 	User::verifyLogin();
@@ -157,7 +157,7 @@ $app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idc
 	exit;
 
 });
-
+// =====================================================================
 $app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($idcategory, $idproduct){
 
 	User::verifyLogin();

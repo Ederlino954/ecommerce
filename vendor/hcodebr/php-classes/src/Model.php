@@ -5,7 +5,7 @@ namespace Hcode;
 class Model { // criando os geters e seters 
 
 	private $values = []; // contem todos os valores dos campos dos objetos 
-
+	// ===============================================================================================
 	public function __call($name, $args)
 	{
 
@@ -16,7 +16,7 @@ class Model { // criando os geters e seters
 		{
 
 			case "get":
-				return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL;
+				return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL; // verificação por causa da PROCEDURE que gera o id, evitar erro
 			break;
 
 			case "set":
@@ -26,7 +26,7 @@ class Model { // criando os geters e seters
 		}
 
 	}
-
+	// ===============================================================================================
 	public function setData($data = array())
 	{
 		// separando os dados do BD
@@ -37,7 +37,7 @@ class Model { // criando os geters e seters
 		}
 
 	}
-
+    // ===============================================================================================
 	public function getValues()
 	{
 
