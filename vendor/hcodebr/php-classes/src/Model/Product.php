@@ -17,10 +17,10 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public static function checkList($list)
+	public static function checkList($list) // checando a lista de produtos 
 	{
 
-		foreach ($list as &$row) {
+		foreach ($list as &$row) { // & manipular a mesma variável na memória 
 			
 			$p = new Product();
 			$p->setData($row);
@@ -28,7 +28,7 @@ class Product extends Model {
 
 		}
 
-		return $list;
+		return $list; // os produtos já formatado 
 
 	}
 	//====================================================================================================================================================

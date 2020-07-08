@@ -84,23 +84,23 @@
                     <div class="latest-product">
                         <h2 class="section-title">Produtos</h2>
                         <div class="product-carousel">
-                            {loop="$products"}
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="{$value.desphoto}" alt="">
-                                    <div class="product-hover">
-                                        <a href="/cart/{$value.idproduct}/add" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Comprar</a>
-                                        <a href="/products/{$value.desurl}" class="view-details-link"><i class="fa fa-link"></i> Ver Detalhes</a>
+                            {loop="$products"}  <!-- dinâmico ----------------------------------------------------------------------- -->
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{$value.desphoto}" alt=""> <!-- variável -->
+                                        <div class="product-hover">
+                                            <a href="/cart/{$value.idproduct}/add" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                                            <a href="/products/{$value.desurl}" class="view-details-link"><i class="fa fa-link"></i> Ver Detalhes</a>
+                                        </div>
                                     </div>
+                                    
+                                    <h2><a href="/products/{$value.desurl}">{$value.desproduct}</a></h2>
+                                    
+                                    <div class="product-carousel-price">
+                                        <ins>R${function="formatPrice($value.vlprice)"}</ins>  <!-- function na raiz -->
+                                    </div> 
                                 </div>
-                                
-                                <h2><a href="/products/{$value.desurl}">{$value.desproduct}</a></h2>
-                                
-                                <div class="product-carousel-price">
-                                    <ins>R${function="formatPrice($value.vlprice)"}</ins>
-                                </div> 
-                            </div>
-                            {/loop}
+                            {/loop}  <!-- dinâmico ----------------------------------------------------------------------- -->
                         </div>
                     </div>
                 </div>
