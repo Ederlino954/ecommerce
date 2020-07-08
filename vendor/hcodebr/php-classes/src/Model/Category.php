@@ -74,15 +74,15 @@ class Category extends Model {
 
 	}
 	//=======================================================================================================
-	public function getProducts($related = true)
+	public function getProducts($related = true) // trazendo todos os produtos // padrão os que estão relacionados com a categoria 
 	{
 
 		$sql = new Sql();
 
-		if ($related === true) {
+		if ($related === true) { // os que estão relacionados IN()
 
 			return $sql->select("
-				SELECT * FROM tb_products WHERE idproduct IN(
+				SELECT * FROM tb_products WHERE idproduct IN( 
 					SELECT a.idproduct
 					FROM tb_products a
 					INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct
@@ -92,7 +92,7 @@ class Category extends Model {
 				':idcategory'=>$this->getidcategory()
 			]);
 
-		} else {
+		} else { // os que não estão relacionandos NOT IN()
 
 			return $sql->select("
 				SELECT * FROM tb_products WHERE idproduct NOT IN(
@@ -137,7 +137,7 @@ class Category extends Model {
 
 	}
 	//=======================================================================================================
-	public function addProduct(Product $product)
+	public function addProduct(Product $product) // Product incial maiúscula por ser uma classe 
 	{
 
 		$sql = new Sql();
@@ -149,7 +149,7 @@ class Category extends Model {
 
 	}
 	//=======================================================================================================
-	public function removeProduct(Product $product)
+	public function removeProduct(Product $product) // Product incial maiúscula por ser uma classe 
 	{
 
 		$sql = new Sql();

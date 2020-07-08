@@ -21,7 +21,7 @@ $app->get('/', function() {
 
 });
 // ================================================================================================================
-$app->get("/categories/:idcategory", function($idcategory){
+$app->get("/categories/:idcategory", function($idcategory){ // visualizando as categorias 
 
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 

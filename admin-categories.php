@@ -133,13 +133,13 @@ $app->get("/admin/categories/:idcategory/products", function($idcategory){
 
 	$page->setTpl("categories-products", [
 		'category'=>$category->getValues(),
-		'productsRelated'=>$category->getProducts(),
-		'productsNotRelated'=>$category->getProducts(false)
+		'productsRelated'=>$category->getProducts(), // relacionandos com a categoria // padrão 
+		'productsNotRelated'=>$category->getProducts(false) // não relacionados com a categoria 
 	]);
 
 });
 // =====================================================================
-$app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){
+$app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){ // adicionando à categoria 
 
 	User::verifyLogin();
 
@@ -158,7 +158,7 @@ $app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idc
 
 });
 // =====================================================================
-$app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($idcategory, $idproduct){
+$app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($idcategory, $idproduct){ // removendo da categoria 
 
 	User::verifyLogin();
 

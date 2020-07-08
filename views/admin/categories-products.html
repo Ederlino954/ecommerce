@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {loop="$productsNotRelated"}
+                            {loop="$productsNotRelated"} <!-- produtos não relacionados com a categoria  -->
                             <tr>
                             <td>{$value.idproduct}</td>
                             <td>{$value.desproduct}</td>
@@ -65,7 +65,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {loop="$productsRelated"}
+                            {loop="$productsRelated"} <!-- produtos relacionados com a categoria  -->
                             <tr>
                             <td>{$value.idproduct}</td>
                             <td>{$value.desproduct}</td>
