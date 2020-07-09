@@ -11,40 +11,39 @@ class Cart extends Model {
 
 	const SESSION = "Cart";
 	const SESSION_ERROR = "CartError";
-
+	// ==================================================================================================================
 	public static function getFromSession()
 	{
 
 		$cart = new Cart();
 
-		if (isset($_SESSION[Cart::SESSION]) && (int)$_SESSION[Cart::SESSION]['idcart'] > 0) {
+		if (isset($_SESSION[Cart::SESSION]) && (int)$_SESSION[Cart::SESSION]['idcart'] > 0) { // id carrinho está na sessão
 
-			$cart->get((int)$_SESSION[Cart::SESSION]['idcart']);
+			$cart->get((int)$_SESSION[Cart::SESSION]['idcart']); // carrinho inserido no banco e está na sesssão
 
 		} else {
 
 			$cart->getFromSessionID();
 
-			if (!(int)$cart->getidcart() > 0) {
+			if (!(int)$cart->getidcart() > 0) { // não conseguiu criar carrinho
 
 				$data = [
-					'dessessionid'=>session_id()
+					'dessessionid'=>session_id() // criando carrinho novo
 				];
 
-				if (User::checkLogin(false)) {
+				if (User::checkLogin(false)) { // se verdadeiro está logado!
 
 					$user = User::getFromSession();
 					
-					$data['iduser'] = $user->getiduser();	
+					$data['iduser'] = $user->getiduser();// Passando o id do usuário! 
 
 				}
 
 				$cart->setData($data);
 
-				$cart->save();
+				$cart->save(); // salvando na BD
 
-				$cart->setToSession();
-
+				$cart->setToSession(); // colocando  na sessão 
 
 			}
 
@@ -53,14 +52,14 @@ class Cart extends Model {
 		return $cart;
 
 	}
-
+	// ==================================================================================================================
 	public function setToSession()
 	{
 
-		$_SESSION[Cart::SESSION] = $this->getValues();
+		$_SESSION[Cart::SESSION] = $this->getValues(); // colocou o carrinho na sessão! 
 
 	}
-
+	// ==================================================================================================================
 	public function getFromSessionID()
 	{
 
@@ -77,7 +76,7 @@ class Cart extends Model {
 		}
 
 	}	
-
+	// ==================================================================================================================
 	public function get(int $idcart)
 	{
 
@@ -94,7 +93,7 @@ class Cart extends Model {
 		}
 
 	}
-
+	// ==================================================================================================================
 	public function save()
 	{
 
@@ -112,7 +111,7 @@ class Cart extends Model {
 		$this->setData($results[0]);
 
 	}
-
+	// ==================================================================================================================
 	public function addProduct(Product $product)
 	{
 
@@ -126,7 +125,7 @@ class Cart extends Model {
 		$this->getCalculateTotal();
 
 	}
-
+	// ==================================================================================================================
 	public function removeProduct(Product $product, $all = false)
 	{
 
@@ -151,7 +150,7 @@ class Cart extends Model {
 		$this->getCalculateTotal();
 
 	}
-
+	// ==================================================================================================================
 	public function getProducts()
 	{
 
@@ -171,7 +170,7 @@ class Cart extends Model {
 		return Product::checkList($rows);
 
 	}
-
+	// ==================================================================================================================
 	public function getProductsTotals()
 	{
 
@@ -193,7 +192,7 @@ class Cart extends Model {
 		}
 
 	}
-
+	// ==================================================================================================================
 	public function setFreight($nrzipcode)
 	{
 
@@ -252,7 +251,7 @@ class Cart extends Model {
 		}
 
 	}
-
+	// ==================================================================================================================
 	public static function formatValueToDecimal($value):float
 	{
 
@@ -267,7 +266,7 @@ class Cart extends Model {
 		$_SESSION[Cart::SESSION_ERROR] = $msg;
 
 	}
-
+	// ==================================================================================================================
 	public static function getMsgError()
 	{
 
@@ -278,14 +277,14 @@ class Cart extends Model {
 		return $msg;
 
 	}
-
+	// ==================================================================================================================
 	public static function clearMsgError()
 	{
 
 		$_SESSION[Cart::SESSION_ERROR] = NULL;
 
 	}
-
+	// ==================================================================================================================
 	public function updateFreight()
 	{
 
@@ -296,7 +295,7 @@ class Cart extends Model {
 		}
 
 	}
-
+	// ==================================================================================================================
 	public function getValues()
 	{
 
@@ -305,7 +304,7 @@ class Cart extends Model {
 		return parent::getValues();
 
 	}
-
+	// ==================================================================================================================
 	public function getCalculateTotal()
 	{
 

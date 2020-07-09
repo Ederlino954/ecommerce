@@ -65,7 +65,7 @@ $app->get("/products/:desurl", function($desurl){ // categoria detalhes
 
 });
 // ================================================================================================================
-$app->get("/cart", function(){
+$app->get("/cart", function(){ // carrinho de compras 
 
 	$cart = Cart::getFromSession();
 

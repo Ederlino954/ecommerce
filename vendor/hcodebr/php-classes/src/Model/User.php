@@ -15,7 +15,7 @@ class User extends Model {
 	const ERROR_REGISTER = "UserErrorRegister";
 	const SUCCESS = "UserSucesss";
 	// =================================================================================================================
-	public static function getFromSession()
+	public static function getFromSession() // carrinho de compras 
 	{
 
 		$user = new User();
@@ -36,7 +36,7 @@ class User extends Model {
 		if (
 			!isset($_SESSION[User::SESSION])  // se não foi definida
 			||
-			!$_SESSION[User::SESSION]
+			!$_SESSION[User::SESSION] // se não foi definida
 			||
 			!(int)$_SESSION[User::SESSION]["iduser"] > 0
 		) {
@@ -45,17 +45,17 @@ class User extends Model {
 
 		} else {
 
-			if ($inadmin === true && (bool)$_SESSION[User::SESSION]['inadmin'] === true) {
+			if ($inadmin === true && (bool)$_SESSION[User::SESSION]['inadmin'] === true) { // Verificação se é administrador
 
-				return true;
+				return true; // Logado com sessãode ADM
 
 			} else if ($inadmin === false) {
 
-				return true;
+				return true; // Com sessão mas não é ADM
 
 			} else {
 
-				return false;
+				return false; // Não logou sessão!
 
 			}
 
