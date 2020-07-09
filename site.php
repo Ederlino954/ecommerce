@@ -23,13 +23,13 @@ $app->get('/', function() {
 // ================================================================================================================
 $app->get("/categories/:idcategory", function($idcategory){ // visualizando as categorias 
 
-	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1; // padrão vazio da pagina 
 
 	$category = new Category();
 
 	$category->get((int)$idcategory);
 
-	$pagination = $category->getProductsPage($page);
+	$pagination = $category->getProductsPage($page); // Paginação 
 
 	$pages = [];
 
@@ -50,7 +50,7 @@ $app->get("/categories/:idcategory", function($idcategory){ // visualizando as c
 
 });
 // ================================================================================================================
-$app->get("/products/:desurl", function($desurl){
+$app->get("/products/:desurl", function($desurl){ // categoria detalhes 
 
 	$product = new Product();
 

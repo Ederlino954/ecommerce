@@ -154,7 +154,7 @@ class Product extends Model {
 
 		$sql = new Sql();
 
-		$rows = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1", [
+		$rows = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1", [ /// LIMIT ! par retornar somente uma linha 
 			':desurl'=>$desurl
 		]);
 
