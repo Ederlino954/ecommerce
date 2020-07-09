@@ -130,7 +130,7 @@ $app->get("/cart/:idproduct/remove", function($idproduct){ // rota remove todos 
 
 });
 // ================================================================================================================
-$app->post("/cart/freight", function(){ // rota cálcuo do frete
+$app->post("/cart/freight", function(){ // rota cálculo do frete
 
 	$cart = Cart::getFromSession();
 
@@ -150,7 +150,7 @@ $app->get("/checkout", function(){ // login usuário
 
 	if (!isset($_GET['zipcode'])) {
 
-		$_GET['zipcode'] = $cart->getdeszipcode();
+		$_GET['zipcode'] = $cart->getdeszipcode(); // aproveitando o cep do carrinho
 
 	}
 
@@ -188,7 +188,7 @@ $app->get("/checkout", function(){ // login usuário
 // ================================================================================================================
 $app->post("/checkout", function(){ 
 
-	User::verifyLogin(false);
+	User::verifyLogin(false); // não é aADM
 
 	if (!isset($_POST['zipcode']) || $_POST['zipcode'] === '') {
 		Address::setMsgError("Informe o CEP.");
@@ -475,11 +475,11 @@ $app->post("/forgot/reset", function(){
 
 });
 // ================================================================================================================
-$app->get("/profile", function(){
+$app->get("/profile", function(){  // perfil
 
 	User::verifyLogin(false);
 
-	$user = User::getFromSession();
+	$user = User::getFromSession(); // recuperando usuário da sessão
 
 	$page = new Page();
 
@@ -495,13 +495,13 @@ $app->post("/profile", function(){
 
 	User::verifyLogin(false);
 
-	if (!isset($_POST['desperson']) || $_POST['desperson'] === '') {
+	if (!isset($_POST['desperson']) || $_POST['desperson'] === '') { // nome
 		User::setError("Preencha o seu nome.");
 		header('Location: /profile');
 		exit;
 	}
 
-	if (!isset($_POST['desemail']) || $_POST['desemail'] === '') {
+	if (!isset($_POST['desemail']) || $_POST['desemail'] === '') { // email
 		User::setError("Preencha o seu e-mail.");
 		header('Location: /profile');
 		exit;
@@ -509,7 +509,7 @@ $app->post("/profile", function(){
 
 	$user = User::getFromSession();
 
-	if ($_POST['desemail'] !== $user->getdesemail()) {
+	if ($_POST['desemail'] !== $user->getdesemail()) { // alterou o email 
 
 		if (User::checkLoginExist($_POST['desemail']) === true) {
 
@@ -521,8 +521,8 @@ $app->post("/profile", function(){
 
 	}
 
-	$_POST['inadmin'] = $user->getinadmin();
-	$_POST['despassword'] = $user->getdespassword();
+	$_POST['inadmin'] = $user->getinadmin(); 
+	$_POST['despassword'] = $user->getdespassword(); // mantém a senha em caso de alteração 
 	$_POST['deslogin'] = $_POST['desemail'];
 
 	$user->setData($_POST);

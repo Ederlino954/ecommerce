@@ -8,15 +8,15 @@ use \Hcode\Model;
 class Address extends Model {
 
 	const SESSION_ERROR = "AddressError";
-
+	// ==============================================================================================
 	public static function getCEP($nrcep)
 	{
 
-		$nrcep = str_replace("-", "", $nrcep);
+		$nrcep = str_replace("-", "", $nrcep); // retirando hífen 
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, "http://viacep.com.br/ws/$nrcep/json/");
+		curl_setopt($ch, CURLOPT_URL, "http://viacep.com.br/ws/$nrcep/json/"); // rastreando url
 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -28,13 +28,13 @@ class Address extends Model {
 		return $data;
 
 	}
-
+	// ==============================================================================================
 	public function loadFromCEP($nrcep)
 	{
 
 		$data = Address::getCEP($nrcep);
 
-		if (isset($data['logradouro']) && $data['logradouro']) {
+		if (isset($data['logradouro']) && $data['logradouro']) { // validações 
 
 			$this->setdesaddress($data['logradouro']);
 			$this->setdescomplement($data['complemento']);
@@ -47,7 +47,7 @@ class Address extends Model {
 		}
 
 	}
-
+	// ==============================================================================================
 	public function save()
 	{
 
@@ -71,14 +71,14 @@ class Address extends Model {
 		}
 
 	}
-
+	// ==============================================================================================
 	public static function setMsgError($msg)
 	{
 
 		$_SESSION[Address::SESSION_ERROR] = $msg;
 
 	}
-
+	// ==============================================================================================
 	public static function getMsgError()
 	{
 
@@ -89,7 +89,7 @@ class Address extends Model {
 		return $msg;
 
 	}
-
+	// ==============================================================================================
 	public static function clearMsgError()
 	{
 
