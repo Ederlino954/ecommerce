@@ -328,7 +328,7 @@ $app->get("/login", function(){
 	$page->setTpl("login", [
 		'error'=>User::getError(),
 		'errorRegister'=>User::getErrorRegister(),
-		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'email'=>'', 'phone'=>'']
+		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'email'=>'', 'phone'=>''] // valores de sessão do form
 	]);
 
 });
@@ -361,12 +361,12 @@ $app->get("/logout", function(){
 // ================================================================================================================
 $app->post("/register", function(){
 
-	$_SESSION['registerValues'] = $_POST;
+	$_SESSION['registerValues'] = $_POST; // não perder o valor registrado ao errar campos de digitação
 
 	if (!isset($_POST['name']) || $_POST['name'] == '') {
 
 		User::setErrorRegister("Preencha o seu nome.");
-		header("Location: /login");
+		header("Location: /login"); // formulário de cadastro
 		exit;
 
 	}
@@ -398,17 +398,17 @@ $app->post("/register", function(){
 	$user = new User();
 
 	$user->setData([
-		'inadmin'=>0,
-		'deslogin'=>$_POST['email'],
+		'inadmin'=>0, // não é administrador 
+		'deslogin'=>$_POST['email'], // reforçando o uso do email
 		'desperson'=>$_POST['name'],
-		'desemail'=>$_POST['email'],
+		'desemail'=>$_POST['email'], // email
 		'despassword'=>$_POST['password'],
 		'nrphone'=>$_POST['phone']
 	]);
 
 	$user->save();
 
-	User::login($_POST['email'], $_POST['password']);
+	User::login($_POST['email'], $_POST['password']); // autenticando usuário 
 
 	header('Location: /checkout');
 	exit;
@@ -509,7 +509,7 @@ $app->post("/profile", function(){
 
 	if ($_POST['desemail'] !== $user->getdesemail()) {
 
-		if (User::checkLoginExists($_POST['desemail']) === true) {
+		if (User::checkLoginExist($_POST['desemail']) === true) {
 
 			User::setError("Este endereço de e-mail já está cadastrado.");
 			header('Location: /profile');
