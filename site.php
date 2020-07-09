@@ -130,13 +130,13 @@ $app->get("/cart/:idproduct/remove", function($idproduct){ // rota remove todos 
 
 });
 // ================================================================================================================
-$app->post("/cart/freight", function(){
+$app->post("/cart/freight", function(){ // rota cálcuo do frete
 
 	$cart = Cart::getFromSession();
 
 	$cart->setFreight($_POST['zipcode']);
 
-	header("Location: /cart");
+	header("Location: /cart"); // de volta para a tela do carrinho 
 	exit;
 
 });

@@ -171,7 +171,7 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function getProductsTotals()
+	public function getProductsTotals() /// dados para calculo do frete
 	{
 
 		$sql = new Sql();
@@ -193,19 +193,19 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function setFreight($nrzipcode)
+	public function setFreight($nrzipcode) // Rota cálculo do frete
 	{
 
-		$nrzipcode = str_replace('-', '', $nrzipcode);
+		$nrzipcode = str_replace('-', '', $nrzipcode); // trocando o hífem pelo vazio sem espaço
 
-		$totals = $this->getProductsTotals();
+		$totals = $this->getProductsTotals(); // iformações totais dos produtos no carrinho 
 
 		if ($totals['nrqtd'] > 0) {
 
-			if ($totals['vlheight'] < 2) $totals['vlheight'] = 2;
-			if ($totals['vllength'] < 16) $totals['vllength'] = 16;
+			if ($totals['vlheight'] < 2) $totals['vlheight'] = 2; // limites de dimensão dos produtos 
+			if ($totals['vllength'] < 16) $totals['vllength'] = 16; // limites de dimensão dos produtos 
 
-			$qs = http_build_query([
+			$qs = http_build_query([ // array
 				'nCdEmpresa'=>'',
 				'sDsSenha'=>'',
 				'nCdServico'=>'40010',
@@ -222,11 +222,11 @@ class Cart extends Model {
 				'sCdAvisoRecebimento'=>'S'
 			]);
 
-			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);
+			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);// função que lê xml
 
 			$result = $xml->Servicos->cServico;
 
-			if ($result->MsgErro != '') {
+			if ($result->MsgErro != '') { // Mensagem de erro!
 
 				Cart::setMsgError($result->MsgErro);
 
@@ -240,7 +240,7 @@ class Cart extends Model {
 			$this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
 			$this->setdeszipcode($nrzipcode);
 
-			$this->save();
+			$this->save(); // Salva no banco
 
 			return $result;
 
@@ -252,14 +252,14 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public static function formatValueToDecimal($value):float
+	public static function formatValueToDecimal($value):float // formatando valor 
 	{
 
 		$value = str_replace('.', '', $value);
 		return str_replace(',', '.', $value);
 
 	}
-
+	// ==================================================================================================================
 	public static function setMsgError($msg)
 	{
 
@@ -270,7 +270,7 @@ class Cart extends Model {
 	public static function getMsgError()
 	{
 
-		$msg = (isset($_SESSION[Cart::SESSION_ERROR])) ? $_SESSION[Cart::SESSION_ERROR] : "";
+		$msg = (isset($_SESSION[Cart::SESSION_ERROR])) ? $_SESSION[Cart::SESSION_ERROR] : ""; // definido retorna elel mesmo se não vazio
 
 		Cart::clearMsgError();
 
@@ -278,14 +278,14 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public static function clearMsgError()
+	public static function clearMsgError() // limpando 
 	{
 
 		$_SESSION[Cart::SESSION_ERROR] = NULL;
 
 	}
 	// ==================================================================================================================
-	public function updateFreight()
+	public function updateFreight() // Atualizando frete 
 	{
 
 		if ($this->getdeszipcode() != '') {
@@ -308,12 +308,12 @@ class Cart extends Model {
 	public function getCalculateTotal()
 	{
 
-		$this->updateFreight();
+		$this->updateFreight(); // atualizando o frete 
 
-		$totals = $this->getProductsTotals();
+		$totals = $this->getProductsTotals(); // valores totais do carrinho 
 
-		$this->setvlsubtotal($totals['vlprice']);
-		$this->setvltotal($totals['vlprice'] + (float)$this->getvlfreight());
+		$this->setvlsubtotal($totals['vlprice']); // soma de todos os produtos dentro do carrinho 
+		$this->setvltotal($totals['vlprice'] + (float)$this->getvlfreight()); // soma de todos os produtos dentro do carrinho + valor frete 
 
 	}
 
