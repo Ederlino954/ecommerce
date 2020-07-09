@@ -241,7 +241,7 @@ class User extends Model {
 
 				$code = base64_encode($code);
 
-				if ($inadmin === true) {
+				if ($inadmin === true) { // preservando a rota do ADM
 
 					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code"; 
 
