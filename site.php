@@ -141,9 +141,9 @@ $app->post("/cart/freight", function(){ // rota cálcuo do frete
 
 });
 // ================================================================================================================
-$app->get("/checkout", function(){
+$app->get("/checkout", function(){ // login usuário 
 
-	User::verifyLogin(false);
+	User::verifyLogin(false); // para não ir no login ADM 
 
 	$address = new Address();
 	$cart = Cart::getFromSession();
@@ -186,7 +186,7 @@ $app->get("/checkout", function(){
 
 });
 // ================================================================================================================
-$app->post("/checkout", function(){
+$app->post("/checkout", function(){ 
 
 	User::verifyLogin(false);
 
@@ -337,15 +337,15 @@ $app->post("/login", function(){
 
 	try {
 
-		User::login($_POST['login'], $_POST['password']);
+		User::login($_POST['login'], $_POST['password']); // login estático 
 
 	} catch(Exception $e) {
 
-		User::setError($e->getMessage());
+		User::setError($e->getMessage()); // estático 
 
 	}
 
-	header("Location: /checkout");
+	header("Location: /checkout"); // tela do usuário 
 	exit;
 
 });

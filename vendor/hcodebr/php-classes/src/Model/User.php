@@ -36,7 +36,7 @@ class User extends Model {
 		if (
 			!isset($_SESSION[User::SESSION])  // se não foi definida
 			||
-			!$_SESSION[User::SESSION] // se não foi definida
+			!$_SESSION[User::SESSION] // foi definida mas vazia
 			||
 			!(int)$_SESSION[User::SESSION]["iduser"] > 0
 		) {
@@ -136,9 +136,9 @@ class User extends Model {
 		$sql = new Sql(); //ultilizando procedure CALL, por se mais rapido e necessita uma requisição.
 
 		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
-			":desperson"=>utf8_decode($this->getdesperson()),
+			":desperson"=>utf8_decode($this->getdesperson()), // acentuação
 			":deslogin"=>$this->getdeslogin(),
-			":despassword"=>User::getPasswordHash($this->getdespassword()),
+			":despassword"=>User::getPasswordHash($this->getdespassword()), // encryptando 
 			":desemail"=>$this->getdesemail(),
 			":nrphone"=>$this->getnrphone(),
 			":inadmin"=>$this->getinadmin()
@@ -173,9 +173,9 @@ class User extends Model {
 
 		$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
 			":iduser"=>$this->getiduser(),
-			":desperson"=>utf8_decode($this->getdesperson()),
+			":desperson"=>utf8_decode($this->getdesperson()), // decode para resolver acentuação
 			":deslogin"=>$this->getdeslogin(),
-			":despassword"=>User::getPasswordHash($this->getdespassword()),
+			":despassword"=>User::getPasswordHash($this->getdespassword()), // encryptando
 			":desemail"=>$this->getdesemail(),
 			":nrphone"=>$this->getnrphone(),
 			":inadmin"=>$this->getinadmin()
@@ -414,7 +414,7 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public static function getPasswordHash($password)
+	public static function getPasswordHash($password) // encryptando 
 	{
 
 		return password_hash($password, PASSWORD_DEFAULT, [
