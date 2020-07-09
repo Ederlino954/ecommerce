@@ -112,7 +112,7 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function addProduct(Product $product)
+	public function addProduct(Product $product) // adicioanndo um produto ao carrinho
 	{
 
 		$sql = new Sql();
@@ -126,21 +126,21 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function removeProduct(Product $product, $all = false)
+	public function removeProduct(Product $product, $all = false) // removendo produto do carrinho // remoção de 1 ou de todos 
 	{
 
 		$sql = new Sql();
 
-		if ($all) {
+		if ($all) { // all verdadeiro remove tudo! 
 
 			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL", [
 				':idcart'=>$this->getidcart(),
 				':idproduct'=>$product->getidproduct()
 			]);
 
-		} else {
+		} else { // remove a unidade
 
-			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", [
+			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", [ // nulo para não setar o que ja foi setado
 				':idcart'=>$this->getidcart(),
 				':idproduct'=>$product->getidproduct()
 			]);
@@ -151,7 +151,7 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function getProducts()
+	public function getProducts() // pegando todos os produtos adicionados ao carrinho 
 	{
 
 		$sql = new Sql();

@@ -30,8 +30,8 @@
                             <table cellspacing="0" class="shop_table cart">
                                 <thead>
                                     <tr>
-                                        <th class="product-remove">&nbsp;</th>
-                                        <th class="product-thumbnail">&nbsp;</th>
+                                        <th class="product-remove"></th>
+                                        <th class="product-thumbnail">&nbsp;Img</th>
                                         <th class="product-name">Produto</th>
                                         <th class="product-price">Preço</th>
                                         <th class="product-quantity">Quantidade</th>
@@ -42,7 +42,7 @@
                                     {loop="$products"}
                                     <tr class="cart_item">
                                         <td class="product-remove">
-                                            <a title="Remove this item" class="remove" href="/cart/{$value.idproduct}/remove">×</a> 
+                                            <a title="Remove this item" class="remove" href="/cart/{$value.idproduct}/remove">X</a> <!-- remove todos -->
                                         </td>
 
                                         <td class="product-thumbnail">
@@ -50,23 +50,23 @@
                                         </td>
 
                                         <td class="product-name">
-                                            <a href="/product/{$value.desurl}">{$value.desproduct}</a> 
+                                            <a href="/product/{$value.desurl}">{$value.desproduct}</a>  
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount">R${function="formatPrice($value.vlprice)"}</span> 
+                                            <span class="amount">R${function="formatPrice($value.vlprice)"}</span> <!-- Preço unitário! -->
                                         </td>
 
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="button" class="minus" value="-" onclick="window.location.href = '/cart/{$value.idproduct}/minus'">
+                                                <input type="button" class="minus" value="-" onclick="window.location.href = '/cart/{$value.idproduct}/minus'"> <!-- removendo unitário! -->
                                                 <input type="number" size="4" class="input-text qty text" title="Qty" value="{$value.nrqtd}" min="0" step="1">
-                                                <input type="button" class="plus" value="+" onclick="window.location.href = '/cart/{$value.idproduct}/add'">
+                                                <input type="button" class="plus" value="+" onclick="window.location.href = '/cart/{$value.idproduct}/add'"> <!-- adicionar unitário! -->
                                             </div>
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="amount">R${function="formatPrice($value.vltotal)"}</span> 
+                                            <span class="amount">R${function="formatPrice($value.vltotal)"}</span>  <!-- Subtotal do produto ! -->
                                         </td>
                                     </tr>
                                     {/loop}

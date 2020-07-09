@@ -72,14 +72,14 @@ $app->get("/cart", function(){ // carrinho de compras
 	$page = new Page();
 
 	$page->setTpl("cart", [
-		'cart'=>$cart->getValues(),
+		'cart'=>$cart->getValues(), // iformações do carrinho 
 		'products'=>$cart->getProducts(),
 		'error'=>Cart::getMsgError()
 	]);
 
 });
 // ================================================================================================================
-$app->get("/cart/:idproduct/add", function($idproduct){
+$app->get("/cart/:idproduct/add", function($idproduct){ // rota adicionando produto ao carrinho
 
 	$product = new Product();
 
@@ -87,7 +87,7 @@ $app->get("/cart/:idproduct/add", function($idproduct){
 
 	$cart = Cart::getFromSession();
 
-	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1;
+	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1; // adicionando quantidae ao carrinho 
 
 	for ($i = 0; $i < $qtd; $i++) {
 		
@@ -100,7 +100,7 @@ $app->get("/cart/:idproduct/add", function($idproduct){
 
 });
 // ================================================================================================================
-$app->get("/cart/:idproduct/minus", function($idproduct){
+$app->get("/cart/:idproduct/minus", function($idproduct){ // rota remove o produto do carrinho// minus = removendo 1
 
 	$product = new Product();
 
@@ -115,7 +115,7 @@ $app->get("/cart/:idproduct/minus", function($idproduct){
 
 });
 // ================================================================================================================
-$app->get("/cart/:idproduct/remove", function($idproduct){
+$app->get("/cart/:idproduct/remove", function($idproduct){ // rota remove todos os produtos do carrinho
 
 	$product = new Product();
 
@@ -123,7 +123,7 @@ $app->get("/cart/:idproduct/remove", function($idproduct){
 
 	$cart = Cart::getFromSession();
 
-	$cart->removeProduct($product, true);
+	$cart->removeProduct($product, true); // true removendo todos 
 
 	header("Location: /cart");
 	exit;
