@@ -55,7 +55,7 @@ class Order extends Model {
 
 	}
 	// ==========================================================================================
-	public static function listAll()
+	public static function listAll() // lista dos pedidos 
 	{
 
 		$sql = new Sql();
@@ -73,7 +73,7 @@ class Order extends Model {
 
 	}
 	// ==========================================================================================
-	public function delete()
+	public function delete() // deleta o pedido 
 	{
 
 		$sql = new Sql();
@@ -84,7 +84,7 @@ class Order extends Model {
 
 	}
 	// ==========================================================================================
-	public function getCart():Cart
+	public function getCart():Cart // pegando o carrinho 
 	{
 
 		$cart = new Cart();

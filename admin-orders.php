@@ -4,27 +4,28 @@ use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 use \Hcode\Model\Order;
 use \Hcode\Model\OrderStatus;
+// rotas mais específicas ficam antes 
+// =========================================================================================
+$app->get("/admin/orders/:idorder/status", function($idorder){ // rota para acessar pedidods
 
-$app->get("/admin/orders/:idorder/status", function($idorder){
+	User::verifyLogin(); // login ADM
 
-	User::verifyLogin();
+	$order = new Order(); // carrega o pedido 
 
-	$order = new Order();
+	$order->get((int)$idorder); // verifica se existe o pedido 
 
-	$order->get((int)$idorder);
-
-	$page = new PageAdmin();
+	$page = new PageAdmin(); 
 
 	$page->setTpl("order-status", [
 		'order'=>$order->getValues(),
-		'status'=>OrderStatus::listAll(),
+		'status'=>OrderStatus::listAll(), // :: estático chamando direto
 		'msgSuccess'=>Order::getSuccess(),
 		'msgError'=>Order::getError()
 	]);
 
 });
-
-$app->post("/admin/orders/:idorder/status", function($idorder){
+// =========================================================================================
+$app->post("/admin/orders/:idorder/status", function($idorder){ // status
 
 	User::verifyLogin();
 
@@ -48,12 +49,12 @@ $app->post("/admin/orders/:idorder/status", function($idorder){
 	exit;
 
 });
+// =========================================================================================
+$app->get("/admin/orders/:idorder/delete", function($idorder){ // delete
 
-$app->get("/admin/orders/:idorder/delete", function($idorder){
+	User::verifyLogin(); 
 
-	User::verifyLogin();
-
-	$order = new Order();
+	$order = new Order(); // carrega o pedido 
 
 	$order->get((int)$idorder);
 
@@ -63,7 +64,7 @@ $app->get("/admin/orders/:idorder/delete", function($idorder){
 	exit;
 
 });
-
+// =========================================================================================
 $app->get("/admin/orders/:idorder", function($idorder){
 
 	User::verifyLogin();
@@ -72,7 +73,7 @@ $app->get("/admin/orders/:idorder", function($idorder){
 
 	$order->get((int)$idorder);
 
-	$cart = $order->getCart();
+	$cart = $order->getCart(); // pegando o carrinho 
 
 	$page = new PageAdmin();
 
@@ -83,7 +84,7 @@ $app->get("/admin/orders/:idorder", function($idorder){
 	]);
 
 });
-
+// =========================================================================================
 $app->get("/admin/orders", function(){
 
 	User::verifyLogin();
