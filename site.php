@@ -251,7 +251,7 @@ $app->post("/checkout", function(){
 		'vltotal'=>$cart->getvltotal()
 	]);
 
-	$order->save();
+	$order->save(); //-----------------------------------------------------paypal
 
 	switch ((int)$_POST['payment-method']) {
 
@@ -275,9 +275,9 @@ $app->get("/order/:idorder/pagseguro", function($idorder){  // pagamentos
 
 	$order = new Order();
 
-	$order->get((int)$idorder);
+	$order->get((int)$idorder); // ordem do pedido 
 
-	$cart = $order->getCart();
+	$cart = $order->getCart(); // carrinho 
 
 	$page = new Page([
 		'header'=>false,
