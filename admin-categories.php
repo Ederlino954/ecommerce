@@ -9,7 +9,7 @@ $app->get("/admin/categories", function(){
 
 	User::verifyLogin();
 
-	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$search = (isset($_GET['search'])) ? $_GET['search'] : ""; // paginação// possível criar classe e chamar os métodos 
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 	if ($search != '') {

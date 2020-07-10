@@ -194,7 +194,7 @@ class Order extends Model {
 			LIMIT $start, $itemsPerPage;
 		", [
 			':search'=>'%'.$search.'%',
-			':id'=>$search
+			':id'=>$search // busca pelo aid 
 		]);
 
 		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");

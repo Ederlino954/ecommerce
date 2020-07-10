@@ -176,7 +176,7 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public static function getPage($page = 1, $itemsPerPage = 10)
+	public static function getPage($page = 1, $itemsPerPage = 10)  // paginação
 	{
 
 		$start = ($page - 1) * $itemsPerPage;
@@ -200,7 +200,7 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
+	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10) // Busca
 	{
 
 		$start = ($page - 1) * $itemsPerPage;

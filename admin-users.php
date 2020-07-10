@@ -62,11 +62,11 @@ $app->post("/admin/users/:iduser/password", function($iduser){
 
 });
 // =======================================================================================
-$app->get("/admin/users", function() { //lidt
+$app->get("/admin/users", function() { //list
 
 	User::verifyLogin();
 
-	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$search = (isset($_GET['search'])) ? $_GET['search'] : ""; // evita erro de variável vazia
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 	if ($search != '') {
@@ -75,11 +75,11 @@ $app->get("/admin/users", function() { //lidt
 
 	} else {
 
-		$pagination = User::getPage($page);
+		$pagination = User::getPage($page); // traz as páginas sem busca 
 
 	}
 
-	$pages = [];
+	$pages = []; // elementos adicionados dentro dele 
 
 	for ($x = 0; $x < $pagination['pages']; $x++)
 	{
