@@ -10,11 +10,11 @@ class Order extends Model {
 
 	const SUCCESS = "Order-Success";
 	const ERROR = "Order-Error";
-
+	// ==========================================================================================
 	public function save()
 	{
 
-		$sql = new Sql();
+		$sql = new Sql(); // usando PROCEDURE 
 
 		$results = $sql->select("CALL sp_orders_save(:idorder, :idcart, :iduser, :idstatus, :idaddress, :vltotal)", [
 			':idorder'=>$this->getidorder(),
@@ -30,7 +30,7 @@ class Order extends Model {
 		}
 
 	}
-
+	// ==========================================================================================
 	public function get($idorder)
 	{
 
@@ -54,7 +54,7 @@ class Order extends Model {
 		}
 
 	}
-
+	// ==========================================================================================
 	public static function listAll()
 	{
 
@@ -72,7 +72,7 @@ class Order extends Model {
 		");
 
 	}
-
+	// ==========================================================================================
 	public function delete()
 	{
 
@@ -83,7 +83,7 @@ class Order extends Model {
 		]);
 
 	}
-
+	// ==========================================================================================
 	public function getCart():Cart
 	{
 
@@ -94,14 +94,14 @@ class Order extends Model {
 		return $cart;
 
 	}
-
+	// ==========================================================================================
 	public static function setError($msg)
 	{
 
 		$_SESSION[Order::ERROR] = $msg;
 
 	}
-
+	// ==========================================================================================
 	public static function getError()
 	{
 
@@ -112,21 +112,21 @@ class Order extends Model {
 		return $msg;
 
 	}
-
+	// ==========================================================================================
 	public static function clearError()
 	{
 
 		$_SESSION[Order::ERROR] = NULL;
 
 	}
-
+	// ==========================================================================================
 	public static function setSuccess($msg)
 	{
 
 		$_SESSION[Order::SUCCESS] = $msg;
 
 	}
-
+	// ==========================================================================================
 	public static function getSuccess()
 	{
 
@@ -137,14 +137,14 @@ class Order extends Model {
 		return $msg;
 
 	}
-
+	// ==========================================================================================
 	public static function clearSuccess()
 	{
 
 		$_SESSION[Order::SUCCESS] = NULL;
 
 	}
-
+	// ==========================================================================================
 	public static function getPage($page = 1, $itemsPerPage = 10)
 	{
 
@@ -173,7 +173,7 @@ class Order extends Model {
 		];
 
 	}
-
+	// ==========================================================================================
 	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
 	{
 

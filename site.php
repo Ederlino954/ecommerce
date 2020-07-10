@@ -237,7 +237,7 @@ $app->post("/checkout", function(){
 
 	$address->save();
 
-	$cart = Cart::getFromSession();
+	$cart = Cart::getFromSession(); /// carrinho da sessão 
 
 	$cart->getCalculateTotal();
 
@@ -269,7 +269,7 @@ $app->post("/checkout", function(){
 
 });
 // ================================================================================================================
-$app->get("/order/:idorder/pagseguro", function($idorder){
+$app->get("/order/:idorder/pagseguro", function($idorder){  // pagamentos
 
 	User::verifyLogin(false);
 
@@ -297,7 +297,7 @@ $app->get("/order/:idorder/pagseguro", function($idorder){
 
 });
 // ================================================================================================================
-$app->get("/order/:idorder/paypal", function($idorder){
+$app->get("/order/:idorder/paypal", function($idorder){ // pagamentos
 
 	User::verifyLogin(false);
 
@@ -536,9 +536,9 @@ $app->post("/profile", function(){
 
 });
 // ================================================================================================================
-$app->get("/order/:idorder", function($idorder){
+$app->get("/order/:idorder", function($idorder){ // pagamentos
 
-	User::verifyLogin(false);
+	User::verifyLogin(false); // usuario logado
 
 	$order = new Order();
 
@@ -556,7 +556,7 @@ $app->get("/boleto/:idorder", function($idorder){
 
 	User::verifyLogin(false);
 
-	$order = new Order();
+	$order = new Order(); // carregando pedido!
 
 	$order->get((int)$idorder);
 
@@ -627,9 +627,9 @@ $app->get("/boleto/:idorder", function($idorder){
 // ================================================================================================================
 $app->get("/profile/orders", function(){
 
-	User::verifyLogin(false);
+	User::verifyLogin(false); // não aADM
 
-	$user = User::getFromSession();
+	$user = User::getFromSession(); // Carrinho de compras
 
 	$page = new Page();
 
@@ -670,17 +670,17 @@ $app->get("/profile/change-password", function(){
 	$page = new Page();
 
 	$page->setTpl("profile-change-password", [
-		'changePassError'=>User::getError(),
+		'changePassError'=>User::getError(), // gerenciador das mensagens de erro em USER no model 
 		'changePassSuccess'=>User::getSuccess()
 	]);
 
 });
 // ================================================================================================================
-$app->post("/profile/change-password", function(){
+$app->post("/profile/change-password", function(){  // alteração de senhas 
 
 	User::verifyLogin(false);
 
-	if (!isset($_POST['current_pass']) || $_POST['current_pass'] === '') {
+	if (!isset($_POST['current_pass']) || $_POST['current_pass'] === '') { // senha atual
 
 		User::setError("Digite a senha atual.");
 		header("Location: /profile/change-password");
@@ -688,7 +688,7 @@ $app->post("/profile/change-password", function(){
 
 	}
 
-	if (!isset($_POST['new_pass']) || $_POST['new_pass'] === '') {
+	if (!isset($_POST['new_pass']) || $_POST['new_pass'] === '') { // nova senha
 
 		User::setError("Digite a nova senha.");
 		header("Location: /profile/change-password");
@@ -696,7 +696,7 @@ $app->post("/profile/change-password", function(){
 
 	}
 
-	if (!isset($_POST['new_pass_confirm']) || $_POST['new_pass_confirm'] === '') {
+	if (!isset($_POST['new_pass_confirm']) || $_POST['new_pass_confirm'] === '') { // confirma a nova senha
 
 		User::setError("Confirme a nova senha.");
 		header("Location: /profile/change-password");
@@ -704,7 +704,7 @@ $app->post("/profile/change-password", function(){
 
 	}
 
-	if ($_POST['current_pass'] === $_POST['new_pass']) {
+	if ($_POST['current_pass'] === $_POST['new_pass']) {  // nova senha igual a antiga
 
 		User::setError("A sua nova senha deve ser diferente da atual.");
 		header("Location: /profile/change-password");
@@ -724,7 +724,7 @@ $app->post("/profile/change-password", function(){
 
 	$user->setdespassword($_POST['new_pass']);
 
-	$user->update();
+	$user->update(); // ele está encryptando
 
 	User::setSuccess("Senha alterada com sucesso.");
 
