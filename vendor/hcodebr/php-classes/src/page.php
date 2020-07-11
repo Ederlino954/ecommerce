@@ -13,7 +13,7 @@ class Page {
 		"footer"=>true,
 		"data"=>[]
 	];
-
+	// =============================================================================================================
 	public function __construct($opts = array(), $tpl_dir = "/views/"){ // primeiro a ser executado
 		
 		$this->options = array_merge($this->defaults, $opts); // mesclando os 2 arrays // opt tem prioridade
@@ -33,7 +33,7 @@ class Page {
 		if ($this->options["header"] === true) $this->tpl->draw("header");
 
 	}
-
+	// =============================================================================================================
 	private function setData($data = array()) // função para otimizar o código por causa da repetição
 	{
 
@@ -42,7 +42,7 @@ class Page {
 		}
 
 	}
-
+	// =============================================================================================================
 	public function setTpl($name, $data = array(), $returnHTML = false) // conteúdo da página 
 	{
 
@@ -51,7 +51,7 @@ class Page {
 		return $this->tpl->draw($name, $returnHTML);
 
 	}
-
+	// =============================================================================================================
 	public function __destruct(){ // último a ser executado
 
 		if ($this->options["footer"] === true) $this->tpl->draw("footer");
