@@ -13,7 +13,7 @@ $app->get('/admin', function() {
 
 });
 // ================================================================================================================
-$app->get('/admin/login', function() {
+$app->get('/admin/login', function() { // login ADM
 
 	$page = new PageAdmin([
 		"header"=>false, // desabilitando o padrão

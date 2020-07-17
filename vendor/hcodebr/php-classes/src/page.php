@@ -6,7 +6,7 @@ use Rain\Tpl;
 
 class Page {
 
-	private $tpl;
+	private $tpl; // para evitar acesso a outaras classes 
 	private $options = [];
 	private $defaults = [ // padrão
 		"header"=>true,
@@ -16,10 +16,10 @@ class Page {
 	// =============================================================================================================
 	public function __construct($opts = array(), $tpl_dir = "/views/"){ // primeiro a ser executado
 		
-		$this->options = array_merge($this->defaults, $opts); // mesclando os 2 arrays // opt tem prioridade
+		$this->options = array_merge($this->defaults, $opts); // mesclando os 2 arrays // o último sobrescreve
 
 		$config = array( // exemplos simples do template rain
-			"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"].$tpl_dir, // diretório do root
+			"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"].$tpl_dir, // diretório do root a super global
 			"cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
 			"debug"         => false
 	    );
