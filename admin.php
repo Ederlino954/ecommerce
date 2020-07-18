@@ -5,7 +5,7 @@ use \Hcode\Model\User;
 // ================================================================================================================
 $app->get('/admin', function() {
     
-	User::verifyLogin();
+	User::verifyLogin(); // na classe User
 
 	$page = new PageAdmin();
 
@@ -13,7 +13,7 @@ $app->get('/admin', function() {
 
 });
 // ================================================================================================================
-$app->get('/admin/login', function() { // login ADM
+$app->get('/admin/login', function() { // login ADM // carregamento pag
 
 	$page = new PageAdmin([
 		"header"=>false, // desabilitando o padrão
@@ -24,7 +24,7 @@ $app->get('/admin/login', function() { // login ADM
 
 });
 // ================================================================================================================
-$app->post('/admin/login', function() {
+$app->post('/admin/login', function() { // rota do formulário de login envio 
 
 	User::login($_POST["login"], $_POST["password"]);
 
@@ -33,7 +33,7 @@ $app->post('/admin/login', function() {
 
 });
 // ================================================================================================================
-$app->get('/admin/logout', function() {
+$app->get('/admin/logout', function() { // rota no admin/ header
 
 	User::logout();
 
@@ -42,7 +42,7 @@ $app->get('/admin/logout', function() {
 
 });
 // ================================================================================================================
-$app->get("/admin/forgot", function() { // caminho para alteração de senha 
+$app->get("/admin/forgot", function() { // caminho para alteração de senha // template
 
 	$page = new PageAdmin([
 		"header"=>false,
@@ -53,7 +53,7 @@ $app->get("/admin/forgot", function() { // caminho para alteração de senha
 
 });
 // ================================================================================================================
-$app->post("/admin/forgot", function(){
+$app->post("/admin/forgot", function(){ // enviando email de recuperação!
 
 	$user = User::getForgot($_POST["email"]); /// no model User
 
@@ -62,8 +62,8 @@ $app->post("/admin/forgot", function(){
 
 });
 // ================================================================================================================
-$app->get("/admin/forgot/sent", function(){
-
+$app->get("/admin/forgot/sent", function(){ // confirmando envio 
+ // finalizando envio
 	$page = new PageAdmin([
 		"header"=>false,
 		"footer"=>false
@@ -73,8 +73,7 @@ $app->get("/admin/forgot/sent", function(){
 
 });
 // ================================================================================================================
-
-$app->get("/admin/forgot/reset", function(){
+$app->get("/admin/forgot/reset", function(){ // tela de recuperação de senha 
 
 	$user = User::validForgotDecrypt($_GET["code"]);
 
@@ -83,7 +82,7 @@ $app->get("/admin/forgot/reset", function(){
 		"footer"=>false
 	]);
 
-	$page->setTpl("forgot-reset", array(
+	$page->setTpl("forgot-reset", array( // recebendo os dados par aalteração!
 		"name"=>$user["desperson"],
 		"code"=>$_GET["code"]
 	));
@@ -92,24 +91,24 @@ $app->get("/admin/forgot/reset", function(){
 // ================================================================================================================
 $app->post("/admin/forgot/reset", function(){
 
-	$forgot = User::validForgotDecrypt($_POST["code"]);	
+	$forgot = User::validForgotDecrypt($_POST["code"]);	 // verificando o código 
 
-	User::setFogotUsed($forgot["idrecovery"]);
+	User::setFogotUsed($forgot["idrecovery"]); // salvando o idrecovery com o tempo estipulado
 
 	$user = new User();
 
-	$user->get((int)$forgot["iduser"]);
+	$user->get((int)$forgot["iduser"]); /// pegando o id
 
-	$password = User::getPasswordHash($_POST["password"]);
+	$password = User::getPasswordHash($_POST["password"]); // criptografando!
 
-	$user->setPassword($password);
+	$user->setPassword($password);  // recebendo a senha nova 
 
 	$page = new PageAdmin([
 		"header"=>false,
 		"footer"=>false
 	]);
 
-	$page->setTpl("forgot-reset-success");
+	$page->setTpl("forgot-reset-success"); // template de confirmação 
 
 });
 

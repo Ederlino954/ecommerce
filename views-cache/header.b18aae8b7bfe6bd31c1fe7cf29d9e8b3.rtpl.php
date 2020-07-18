@@ -210,7 +210,7 @@ desired effect
                 </div>
                 <div class="pull-right">
                   <!-- chamando logout do Admin -->
-                  <a href="/admin/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/admin/logout" class="btn btn-default btn-flat">Sign out</a> <!-- saída do login! -->
                 </div>
               </li>
             </ul>
@@ -235,6 +235,7 @@ desired effect
           <img src="/res/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
+          
           <p>Alexander Pierce</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
@@ -257,10 +258,10 @@ desired effect
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>
-        <li><a href="/admin/categories"><i class="fa fa-link"></i> <span>Categorias</span></a></li>
-        <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
-        <li><a href="/admin/orders"><i class="fa fa-shopping-cart"></i> <span>Pedidos</span></a></li>
+        <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>         <!-- atualizados -->
+        <li><a href="/admin/categories"><i class="fa fa-link"></i> <span>Categorias</span></a></li>   <!-- atualizados -->
+        <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>       <!-- atualizados -->
+        <li><a href="/admin/orders"><i class="fa fa-shopping-cart"></i> <span>Pedidos</span></a></li> <!-- atualizados -->
 
         
       </ul>

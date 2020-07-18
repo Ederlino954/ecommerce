@@ -5,7 +5,7 @@ use \Hcode\Model\User;
 use \Hcode\Model\Category;
 use \Hcode\Model\Product;
 // =====================================================================
-$app->get("/admin/categories", function(){
+$app->get("/admin/categories", function(){ // template de categorias 
 
 	User::verifyLogin();
 
@@ -40,7 +40,7 @@ $app->get("/admin/categories", function(){
 	$page = new PageAdmin();
 
 	$page->setTpl("categories", [
-		"categories"=>$pagination['data'], 
+		"categories"=>$pagination['data'], /// página junto com os arrays 
 		"search"=>$search,
 		"pages"=>$pages
 	]);	
@@ -48,17 +48,17 @@ $app->get("/admin/categories", function(){
 
 });
 // =====================================================================
-$app->get("/admin/categories/create", function(){
+$app->get("/admin/categories/create", function(){ // rota pra criação 
 
 	User::verifyLogin();
 
 	$page = new PageAdmin();
 
-	$page->setTpl("categories-create");	// para a pagina
+	$page->setTpl("categories-create");	// para a pagina // Template
 
 });
 // =====================================================================
-$app->post("/admin/categories/create", function(){
+$app->post("/admin/categories/create", function(){ // salvando a criação 
 
 	User::verifyLogin();
 
@@ -75,7 +75,7 @@ $app->post("/admin/categories/create", function(){
 // =====================================================================
 $app->get("/admin/categories/:idcategory/delete", function($idcategory){
 
-	User::verifyLogin();
+	User::verifyLogin(); // verificação de login 
 
 	$category = new Category();
 
@@ -88,7 +88,7 @@ $app->get("/admin/categories/:idcategory/delete", function($idcategory){
 
 });
 // =====================================================================
-$app->get("/admin/categories/:idcategory", function($idcategory){
+$app->get("/admin/categories/:idcategory", function($idcategory){ // rota que mostar o template
 
 	User::verifyLogin();
 
@@ -98,13 +98,13 @@ $app->get("/admin/categories/:idcategory", function($idcategory){
 
 	$page = new PageAdmin();
 
-	$page->setTpl("categories-update", [
-		'category'=>$category->getValues()
+	$page->setTpl("categories-update", [ // Template // categori sendo passado como um array
+		'category'=>$category->getValues() // getValues quando for array
 	]);	
 
 });
 // =====================================================================
-$app->post("/admin/categories/:idcategory", function($idcategory){
+$app->post("/admin/categories/:idcategory", function($idcategory){ // Salvando categoria // criar çógica para não salvar a mesma categoria 
 
 	User::verifyLogin();
 

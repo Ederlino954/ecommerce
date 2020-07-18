@@ -62,9 +62,9 @@ $app->post("/admin/users/:iduser/password", function($iduser){
 
 });
 // =======================================================================================
-$app->get("/admin/users", function() { //list
+$app->get("/admin/users", function() { //listar todos os usuários 
 
-	User::verifyLogin();
+	User::verifyLogin(); // verificação de login e permissões
 
 	$search = (isset($_GET['search'])) ? $_GET['search'] : ""; // evita erro de variável vazia
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -104,7 +104,7 @@ $app->get("/admin/users", function() { //list
 
 });
 // =======================================================================================
-$app->get("/admin/users/create", function() { // create
+$app->get("/admin/users/create", function() { 
 
 	User::verifyLogin();
 
@@ -118,7 +118,7 @@ $app->get("/admin/users/:iduser/delete", function($iduser) { // Delete // ficar 
 
 	User::verifyLogin();	
 
-	$user = new User();
+	$user = new User(); // carregando para ver se existe no banco
 
 	$user->get((int)$iduser); // convertendo para numérico por certificação 
 
@@ -145,17 +145,17 @@ $app->get("/admin/users/:iduser", function($iduser) { // atualizar / editar // f
 
 });
 // =======================================================================================
-$app->post("/admin/users/create", function() { // create
+$app->post("/admin/users/create", function() { // rota para salvar de fato // cadastro usuários 
 
 	User::verifyLogin();
 
 	$user = new User();
 
-	$_POST["inadmin"] = (isset($_POST["inadmin"]))?1:0; /// verificação de Admin 1 = admin / 0= não
+	$_POST["inadmin"] = (isset($_POST["inadmin"]))?1:0; /// verificação de Admin definido 1 = admin / 0= não
 
 	$_POST['despassword'] = User::getPasswordHash($_POST['despassword']);
 
-	$user->setData($_POST);
+	$user->setData($_POST); // recebendo o array
 
 	$user->save(); // no model
 
@@ -164,7 +164,7 @@ $app->post("/admin/users/create", function() { // create
 
 });
 // =======================================================================================
-$app->post("/admin/users/:iduser", function($iduser) {
+$app->post("/admin/users/:iduser", function($iduser) { // rota para salvar edição 
 
 	User::verifyLogin();
 
@@ -172,7 +172,7 @@ $app->post("/admin/users/:iduser", function($iduser) {
 
 	$_POST["inadmin"] = (isset($_POST["inadmin"]))?1:0; /// verificação de Admin 1 = admin / 0= não
 
-	$user->get((int)$iduser); // convertendo para numérico por certificação 
+	$user->get((int)$iduser); // carregando os dados convertendo para numérico por certificação 
 
 	$user->setData($_POST);
 

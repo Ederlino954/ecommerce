@@ -30,7 +30,7 @@ class Page {
 
 		$this->setData($this->options["data"]);
 
-		if ($this->options["header"] === true) $this->tpl->draw("header");
+		if ($this->options["header"] === true) $this->tpl->draw("header"); // condição layout ADM se true carrega
 
 	}
 	// =============================================================================================================
@@ -54,7 +54,7 @@ class Page {
 	// =============================================================================================================
 	public function __destruct(){ // último a ser executado
 
-		if ($this->options["footer"] === true) $this->tpl->draw("footer");
+		if ($this->options["footer"] === true) $this->tpl->draw("footer"); // condição layout ADM se true carrega
 
 	}
 

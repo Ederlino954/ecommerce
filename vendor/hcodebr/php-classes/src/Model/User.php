@@ -2,13 +2,13 @@
 
 namespace Hcode\Model;
 
-use \Hcode\DB\Sql;
+use \Hcode\DB\Sql;  //  \Hcode chama na raiz
 use \Hcode\Model;
 use \Hcode\Mailer;
 
-class User extends Model {
+class User extends Model { // classe model e necessita de geters e seters 
 
-	const SESSION = "User";
+	const SESSION = "User"; // nome da sessão
 	const SECRET = "HcodePhp7_Secret";
 	const SECRET_IV = "HcodePhp7_Secret_IV";
 	const ERROR = "UserError";
@@ -74,7 +74,7 @@ class User extends Model {
 
 		if (count($results) === 0)
 		{
-			throw new \Exception("Usuário inexistente ou senha inválida."); // \ para achar exception principal
+			throw new \Exception("Usuário inexistente ou senha inválida."); // \ para achar exception principal/ pois não criamos Exception
 		}
 
 		$data = $results[0];
@@ -82,13 +82,13 @@ class User extends Model {
 		if (password_verify($password, $data["despassword"]) === true)
 		{
 
-			$user = new User();
+			$user = new User(); // gera instancia da própria classe
 
 			$data['desperson'] = utf8_encode($data['desperson']);
 
-			$user->setData($data);
+			$user->setData($data); /// setData pegando o array inteiro para o model onde está o seters e geters 
 
-			$_SESSION[User::SESSION] = $user->getValues();
+			$_SESSION[User::SESSION] = $user->getValues(); // pegando os valores 
 
 			return $user;
 
@@ -114,14 +114,14 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public static function logout()
+	public static function logout() // saindo da sessão
 	{
 
 		$_SESSION[User::SESSION] = NULL;
 
 	}
 	// =================================================================================================================
-	public static function listAll()
+	public static function listAll() // ler todos os dados da tabela
 	{
 
 		$sql = new Sql();
@@ -136,19 +136,19 @@ class User extends Model {
 		$sql = new Sql(); //ultilizando procedure CALL, por se mais rapido e necessita uma requisição.
 
 		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
-			":desperson"=>utf8_decode($this->getdesperson()), // acentuação
+			":desperson"=>utf8_decode($this->getdesperson()), // acentuação 
 			":deslogin"=>$this->getdeslogin(),
 			":despassword"=>User::getPasswordHash($this->getdespassword()), // encryptando 
 			":desemail"=>$this->getdesemail(),
 			":nrphone"=>$this->getnrphone(),
-			":inadmin"=>$this->getinadmin()
+			":inadmin"=>$this->getinadmin() // geters gerados pelo setData()
 		));
 
 		$this->setData($results[0]);
 
 	}
 	// =================================================================================================================
-	public function get($iduser)
+	public function get($iduser) // pegando dados para atualizar
 	{
 
 		$sql = new Sql();
@@ -196,12 +196,12 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public static function getForgot($email, $inadmin = true)
+	public static function getForgot($email, $inadmin = true) // envio de email para alteração
 	{
 
 		$sql = new Sql();
-
-		$results = $sql->select("
+		// verificando se o email está no  banco de dados 
+		$results = $sql->select(" 
 			SELECT *
 			FROM tb_persons a
 			INNER JOIN tb_users b USING(idperson)
@@ -223,7 +223,7 @@ class User extends Model {
 
 			$results2 = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)", array(
 				":iduser"=>$data['iduser'],
-				":desip"=>$_SERVER['REMOTE_ADDR']
+				":desip"=>$_SERVER['REMOTE_ADDR'] // pega o ip do usuário 
 			));
 
 			if (count($results2) === 0)
@@ -237,17 +237,17 @@ class User extends Model {
 
 				$dataRecovery = $results2[0];
 
-				$code = openssl_encrypt($dataRecovery['idrecovery'], 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
+				$code = openssl_encrypt($dataRecovery['idrecovery'], 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV)); // encryptando
 
 				$code = base64_encode($code);
 
 				if ($inadmin === true) { // preservando a rota do ADM
 
-					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code"; 
+					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code"; // link de envio par o email
 
 				} else {
 
-					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
+					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code"; // link de envio par o email
 					
 				}				
 
@@ -266,14 +266,14 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public static function validForgotDecrypt($code) // naclasse ssmtp do phpmailaer desabilitei um if na linha 368 para teste
+	public static function validForgotDecrypt($code) // na classe ssmtp do phpmailaer desabilitei um if na linha 368 para teste
 	{
 
-		$code = base64_decode($code);
+		$code = base64_decode($code); /// decodificando
 
 		$idrecovery = openssl_decrypt($code, 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
 
-		$sql = new Sql();
+		$sql = new Sql(); // recuperando a senha com uma hora de duração 
 
 		$results = $sql->select("
 			SELECT *
@@ -297,13 +297,13 @@ class User extends Model {
 		else
 		{
 
-			return $results[0];
+			return $results[0]; 
 
 		}
 
 	}
 	// =================================================================================================================
-	public static function setFogotUsed($idrecovery)
+	public static function setFogotUsed($idrecovery) // Atualizando o idrecovery com o tempo estipulado // recuperação de senha
 	{
 
 		$sql = new Sql();
@@ -314,7 +314,7 @@ class User extends Model {
 
 	}
 	// =================================================================================================================
-	public function setPassword($password)
+	public function setPassword($password) // recebendo a senha nova 
 	{
 
 		$sql = new Sql();

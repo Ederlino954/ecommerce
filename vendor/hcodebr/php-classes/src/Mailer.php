@@ -10,7 +10,7 @@ class Mailer { // atualizar para teste
 	const PASSWORD = "<?password?>"; // atualizar para teste
 	const NAME_FROM = "Hcode Store"; // atualizar para teste
 
-	private $mail;
+	private $mail;  // $this->mail para vir do atributo
 
 	public function __construct($toAddress, $toName, $subject, $tplName, $data = array())
 	{
@@ -29,7 +29,7 @@ class Mailer { // atualizar para teste
 			$tpl->assign($key, $value);
 		}
 
-		$html = $tpl->draw($tplName, true); /// true par ajogar dentro da variável 
+		$html = $tpl->draw($tplName, true); /// true para jogar dentro da variável 
 
 		$this->mail = new \PHPMailer; // contra barra para achar a classe 
 
@@ -80,7 +80,7 @@ class Mailer { // atualizar para teste
 
 		//Read an HTML message body from an external file, convert referenced images to embedded,
 		//convert HTML into a basic plain-text alternative body
-		$this->mail->msgHTML($html);
+		$this->mail->msgHTML($html); // renderizando com Rain/TPL
 
 		//Replace the plain text body with one created manually
 		$this->mail->AltBody = 'This is a plain-text message body';

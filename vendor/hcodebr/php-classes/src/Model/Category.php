@@ -13,11 +13,11 @@ class Category extends Model {
 
 		$sql = new Sql();
 
-		return $sql->select("SELECT * FROM tb_categories ORDER BY descategory");
+		return $sql->select("SELECT * FROM tb_categories ORDER BY descategory"); // listando todas as categorias ordenando pelo nome
 
 	}
 	//=======================================================================================================
-	public function save()
+	public function save() 
 	{
 
 		$sql = new Sql(); // usando PROCEDURE
@@ -27,13 +27,13 @@ class Category extends Model {
 			":descategory"=>$this->getdescategory()
 		));
 
-		$this->setData($results[0]);
+		$this->setData($results[0]); // método seters e geters 
 
 		Category::updateFile();
 
 	}
 	//=======================================================================================================
-	public function get($idcategory)
+	public function get($idcategory) // pegando as categorias 
 	{
 
 		$sql = new Sql();
@@ -52,7 +52,7 @@ class Category extends Model {
 		$sql = new Sql();
 
 		$sql->query("DELETE FROM tb_categories WHERE idcategory = :idcategory", [
-			':idcategory'=>$this->getidcategory()
+			':idcategory'=>$this->getidcategory() // sem a variação por isso usar $this
 		]);
 
 		Category::updateFile();
