@@ -45,17 +45,17 @@ class User extends Model { // classe model e necessita de geters e seters
 
 		} else {
 
-			if ($inadmin === true && (bool)$_SESSION[User::SESSION]['inadmin'] === true) { // Verificação se é administrador
+			if ($inadmin === true && (bool)$_SESSION[User::SESSION]['inadmin'] === true) { // Verificação se é administrador---------------------------------
 
-				return true; // Logado com sessãode ADM
-
-			} else if ($inadmin === false) {
-
-				return true; // Com sessão mas não é ADM
-
-			} else {
-
-				return false; // Não logou sessão!
+				return true; // Logado com sessãode ADM ----------------------------------//
+                                                                                          //
+			} else if ($inadmin === false) {                                              //
+                                                                                          // 
+				return true; // Com sessão mas não é ADM----usuário logado----------------//
+                                                                                          // 
+			} else {                                                                      //
+                                                                                          //
+				return false; // Não logou sessão!---usuario não logado ------------------//
 
 			}
 
@@ -104,7 +104,7 @@ class User extends Model { // classe model e necessita de geters e seters
 		if (!User::checkLogin($inadmin)) {
 
 			if ($inadmin) {
-				header("Location: /admin/login");
+				header("Location: /admin/login"); // Caminho para o Administrador
 			} else {
 				header("Location: /login");
 			}
@@ -243,11 +243,11 @@ class User extends Model { // classe model e necessita de geters e seters
 
 				if ($inadmin === true) { // preservando a rota do ADM
 
-					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code"; // link de envio par o email
+					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code"; // link de envio para o email
 
 				} else {
 
-					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code"; // link de envio par o email
+					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code"; // link de envio para o email
 					
 				}				
 
@@ -338,7 +338,7 @@ class User extends Model { // classe model e necessita de geters e seters
 
 		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
 
-		User::clearError();
+		User::clearError(); // limpando erro 
 
 		return $msg;
 

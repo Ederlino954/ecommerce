@@ -58,7 +58,7 @@ $app->get("/products/:desurl", function($desurl){ // categoria detalhes
 
 	$page = new Page();
 
-	$page->setTpl("product-detail", [
+	$page->setTpl("product-detail", [  /// template
 		'product'=>$product->getValues(),
 		'categories'=>$product->getCategories()
 	]);
@@ -71,7 +71,7 @@ $app->get("/cart", function(){ // carrinho de compras
 
 	$page = new Page();
 
-	$page->setTpl("cart", [
+	$page->setTpl("cart", [ /// Template
 		'cart'=>$cart->getValues(), // iformações do carrinho 
 		'products'=>$cart->getProducts(),
 		'error'=>Cart::getMsgError()
@@ -85,9 +85,9 @@ $app->get("/cart/:idproduct/add", function($idproduct){ // rota adicionando prod
 
 	$product->get((int)$idproduct);
 
-	$cart = Cart::getFromSession();
+	$cart = Cart::getFromSession(); // recuperando o carrinho da sessão 
 
-	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1; // adicionando quantidae ao carrinho 
+	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1; // adicionando quantidade ao carrinho 
 
 	for ($i = 0; $i < $qtd; $i++) {
 		
@@ -123,7 +123,7 @@ $app->get("/cart/:idproduct/remove", function($idproduct){ // rota remove todos 
 
 	$cart = Cart::getFromSession();
 
-	$cart->removeProduct($product, true); // true removendo todos 
+	$cart->removeProduct($product, true); // true removendo todos
 
 	header("Location: /cart");
 	exit;
@@ -146,7 +146,7 @@ $app->get("/checkout", function(){ // login usuário
 	User::verifyLogin(false); // para não ir no login ADM 
 
 	$address = new Address();
-	$cart = Cart::getFromSession();
+	$cart = Cart::getFromSession(); // por causa das variáveis na pag
 
 	if (!isset($_GET['zipcode'])) {
 
@@ -177,7 +177,7 @@ $app->get("/checkout", function(){ // login usuário
 
 	$page = new Page();
 
-	$page->setTpl("checkout", [
+	$page->setTpl("checkout", [  // template 
 		'cart'=>$cart->getValues(),
 		'address'=>$address->getValues(),
 		'products'=>$cart->getProducts(),
@@ -321,14 +321,14 @@ $app->get("/order/:idorder/paypal", function($idorder){ // pagamentos
 
 });
 // ================================================================================================================
-$app->get("/login", function(){
+$app->get("/login", function(){ // direcionamento par o login no contexto de finalização de compra
 
 	$page = new Page();
 
 	$page->setTpl("login", [
 		'error'=>User::getError(),
 		'errorRegister'=>User::getErrorRegister(),
-		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'email'=>'', 'phone'=>''] // valores de sessão do form
+		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'email'=>'', 'phone'=>''] // valores de sessão do form para não perder quando digitar no processo de prenchimento do form 
 	]);
 
 });
@@ -337,7 +337,7 @@ $app->post("/login", function(){
 
 	try {
 
-		User::login($_POST['login'], $_POST['password']); // login estático 
+		User::login($_POST['login'], $_POST['password']); // login estático   // statico não precisa usar new 
 
 	} catch(Exception $e) {
 
@@ -352,17 +352,17 @@ $app->post("/login", function(){
 // ================================================================================================================
 $app->get("/logout", function(){
 
-	User::logout();
+	User::logout(); // statico não precisa usar new 
 
 	header("Location: /login");
 	exit;
 
 });
 // ================================================================================================================
-$app->post("/register", function(){
+$app->post("/register", function(){ // formulário de registro usuario
 
 	$_SESSION['registerValues'] = $_POST; // não perder o valor registrado ao errar campos de digitação
-
+	// verificações do formulário! 
 	if (!isset($_POST['name']) || $_POST['name'] == '') {
 
 		User::setErrorRegister("Preencha o seu nome.");
@@ -387,7 +387,7 @@ $app->post("/register", function(){
 
 	}
 
-	if (User::checkLoginExist($_POST['email']) === true) {
+	if (User::checkLoginExist($_POST['email']) === true) { // usando email de referencia!
 
 		User::setErrorRegister("Este endereço de e-mail já está sendo usado por outro usuário.");
 		header("Location: /login");
@@ -414,20 +414,20 @@ $app->post("/register", function(){
 	exit;
 
 });
-
-// usuários 
+// ================================================================================================================
+// usuários ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // ================================================================================================================
 $app->get("/forgot", function() {
 
 	$page = new Page();
 
-	$page->setTpl("forgot");	
+	$page->setTpl("forgot"); // Template
 
 });
 // ================================================================================================================
 $app->post("/forgot", function(){
 
-	$user = User::getForgot($_POST["email"], false); // não está na ADM 
+	$user = User::getForgot($_POST["email"], false); // false para dizer que não está mais na administração, protegendo o link de ADM
 
 	header("Location: /forgot/sent");
 	exit;
@@ -483,7 +483,7 @@ $app->get("/profile", function(){  // perfil
 
 	$page = new Page();
 
-	$page->setTpl("profile", [
+	$page->setTpl("profile", [ // Template
 		'user'=>$user->getValues(),
 		'profileMsg'=>User::getSuccess(),
 		'profileError'=>User::getError()
@@ -511,7 +511,7 @@ $app->post("/profile", function(){
 
 	if ($_POST['desemail'] !== $user->getdesemail()) { // alterou o email 
 
-		if (User::checkLoginExist($_POST['desemail']) === true) {
+		if (User::checkLoginExist($_POST['desemail']) === true) { // checando o email 
 
 			User::setError("Este endereço de e-mail já está cadastrado.");
 			header('Location: /profile');

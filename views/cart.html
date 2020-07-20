@@ -39,6 +39,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    <!-- ------------------------------------------------------------------------------------------------------------------------------------------ -->
                                     {loop="$products"}
                                     <tr class="cart_item">
                                         <td class="product-remove">
@@ -70,6 +72,8 @@
                                         </td>
                                     </tr>
                                     {/loop}
+                                    <!-- ------------------------------------------------------------------------------------------------------------------------------------------ -->
+
                                 </tbody>
                             </table>
 
@@ -82,7 +86,7 @@
                                     <div class="coupon">
                                         <label for="cep">CEP:</label>
                                         <input type="text" placeholder="00000-000" value="{$cart.deszipcode}" id="cep" class="input-text" name="zipcode">
-                                        <input type="submit" formmethod="post" formaction="/cart/freight" value="CÁLCULAR" class="button">
+                                        <input type="submit" formmethod="post" formaction="/cart/freight" value="CALCULAR" class="button">
                                     </div>
 
                                 </div>

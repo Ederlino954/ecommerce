@@ -149,12 +149,12 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public function getFromURL($desurl)
+	public function getFromURL($desurl)  // url do produto
 	{
 
 		$sql = new Sql();
 
-		$rows = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1", [ /// LIMIT ! par retornar somente uma linha 
+		$rows = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1", [ /// LIMIT ! para retornar somente uma linha 
 			':desurl'=>$desurl
 		]);
 
@@ -162,7 +162,7 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public function getCategories()
+	public function getCategories() // Categorias em detalhes 
 	{
 
 		$sql = new Sql();

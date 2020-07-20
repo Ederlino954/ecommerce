@@ -17,7 +17,7 @@
                 <div class="product-content-right">
                     <div class="product-breadcroumb">
                         <a href="/">Home</a>
-                        <a href=""><?php echo htmlspecialchars( $product["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                        <a href=""><?php echo htmlspecialchars( $product["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a> 
                     </div>
                     
                     <div class="row">
@@ -42,7 +42,7 @@
                                     </div>
                                     <button class="add_to_cart_button" type="submit">Comprar</button>
                                 </form>   
-                                 
+                                <!-- links das categiorias de forma Dinâmica ----------------------------------------------------------------------------------- -->
                                 <div class="product-inner-category">
                                     <p>Categorias<?php $counter1=-1;  if( isset($categories) && ( is_array($categories) || $categories instanceof Traversable ) && sizeof($categories) ) foreach( $categories as $key1 => $value1 ){ $counter1++; ?> <a href="/categories/<?php echo htmlspecialchars( $value1["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a><?php } ?>.
                                 </div> 

@@ -12,12 +12,12 @@ class Cart extends Model {
 	const SESSION = "Cart";
 	const SESSION_ERROR = "CartError";
 	// ==================================================================================================================
-	public static function getFromSession()
+	public static function getFromSession() 
 	{
 
 		$cart = new Cart();
 
-		if (isset($_SESSION[Cart::SESSION]) && (int)$_SESSION[Cart::SESSION]['idcart'] > 0) { // id carrinho está na sessão
+		if (isset($_SESSION[Cart::SESSION]) && (int)$_SESSION[Cart::SESSION]['idcart'] > 0) { // se id carrinho está na sessão e ele é maior que 0
 
 			$cart->get((int)$_SESSION[Cart::SESSION]['idcart']); // carrinho inserido no banco e está na sesssão
 
@@ -53,7 +53,7 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function setToSession()
+	public function setToSession() // Não estatico pois está usando $this
 	{
 
 		$_SESSION[Cart::SESSION] = $this->getValues(); // colocou o carrinho na sessão! 
@@ -69,7 +69,7 @@ class Cart extends Model {
 			':dessessionid'=>session_id()
 		]);
 
-		if (count($results) > 0) {
+		if (count($results) > 0) { // para evitar erro se vier vazio
 
 			$this->setData($results[0]);
 
@@ -138,7 +138,7 @@ class Cart extends Model {
 				':idproduct'=>$product->getidproduct()
 			]);
 
-		} else { // remove a unidade
+		} else { // remove a unidade 
 
 			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", [ // nulo para não setar o que ja foi setado
 				':idcart'=>$this->getidcart(),
@@ -171,7 +171,7 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function getProductsTotals() /// dados para calculo do frete
+	public function getProductsTotals() /// atualiza frete e os preços
 	{
 
 		$sql = new Sql();
@@ -198,7 +198,7 @@ class Cart extends Model {
 
 		$nrzipcode = str_replace('-', '', $nrzipcode); // trocando o hífem pelo vazio sem espaço
 
-		$totals = $this->getProductsTotals(); // iformações totais dos produtos no carrinho 
+		$totals = $this->getProductsTotals(); // atualiza frete e os preços
 
 		if ($totals['nrqtd'] > 0) {
 
@@ -222,7 +222,7 @@ class Cart extends Model {
 				'sCdAvisoRecebimento'=>'S'
 			]);
 
-			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);// função que lê xml
+			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);// função que lê XML
 
 			$result = $xml->Servicos->cServico;
 
@@ -305,7 +305,7 @@ class Cart extends Model {
 
 	}
 	// ==================================================================================================================
-	public function getCalculateTotal()
+	public function getCalculateTotal() // atualiza frete e os preços
 	{
 
 		$this->updateFreight(); // atualizando o frete 

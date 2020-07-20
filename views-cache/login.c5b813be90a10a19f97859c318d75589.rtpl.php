@@ -19,10 +19,10 @@
 
                 <?php if( $error != '' ){ ?>
 
-                <div class="alert alert-danger">
-                    <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+                    <div class="alert alert-danger">
+                        <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
 
-                </div>
+                    </div>
                 <?php } ?>
 
 
@@ -54,10 +54,10 @@
                 
                 <?php if( $errorRegister != '' ){ ?>
 
-                <div class="alert alert-danger">
-                    <?php echo htmlspecialchars( $errorRegister, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+                    <div class="alert alert-danger">
+                        <?php echo htmlspecialchars( $errorRegister, ENT_COMPAT, 'UTF-8', FALSE ); ?>
 
-                </div>
+                    </div>
                 <?php } ?>
 
 
