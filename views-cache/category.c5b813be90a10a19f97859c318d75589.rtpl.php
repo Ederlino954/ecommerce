@@ -14,13 +14,13 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>  <!-- início -->
+            <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>  <!-- início -------------------------------------------------------------------------------------------------------------------------------- -->
             <div class="col-md-3 col-sm-6">
                 <div class="single-shop-product">
                     <div class="product-upper">
                         <img src="<?php echo htmlspecialchars( $value1["desphoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="">
                     </div>
-                    <h2><a href="/products/<?php echo htmlspecialchars( $value1["desurl"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></h2> <!-- dado dinâmico -->
+                    <h2><a href="/products/<?php echo htmlspecialchars( $value1["desurl"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></h2> <!-- dado dinâmico LINK -->
                     <div class="product-carousel-price">
                         <ins>R$<?php echo formatPrice($value1["vlprice"]); ?></ins>
                     </div>
@@ -30,7 +30,7 @@
                     </div>                       
                 </div>
             </div>
-            <?php } ?> <!-- fim -->
+            <?php } ?> <!-- fim -------------------------------------------------------------------------------------------------------------------------------------------------->
             
         </div>
         

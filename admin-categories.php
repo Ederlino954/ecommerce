@@ -98,8 +98,8 @@ $app->get("/admin/categories/:idcategory", function($idcategory){ // rota que mo
 
 	$page = new PageAdmin();
 
-	$page->setTpl("categories-update", [ // Template // categori sendo passado como um array
-		'category'=>$category->getValues() // getValues quando for array
+	$page->setTpl("categories-update", [ // Template // 
+		'category'=>$category->getValues() // category sendo passado como um array
 	]);	
 
 });
@@ -131,7 +131,7 @@ $app->get("/admin/categories/:idcategory/products", function($idcategory){
 
 	$page = new PageAdmin();
 
-	$page->setTpl("categories-products", [
+	$page->setTpl("categories-products", [ // template
 		'category'=>$category->getValues(),
 		'productsRelated'=>$category->getProducts(), // relacionandos com a categoria // padrão 
 		'productsNotRelated'=>$category->getProducts(false) // não relacionados com a categoria 
@@ -139,7 +139,7 @@ $app->get("/admin/categories/:idcategory/products", function($idcategory){
 
 });
 // =====================================================================
-$app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){ // adicionando à categoria 
+$app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){ // adicionando à categoria com base no :idcategory
 
 	User::verifyLogin();
 
@@ -158,7 +158,7 @@ $app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idc
 
 });
 // =====================================================================
-$app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($idcategory, $idproduct){ // removendo da categoria 
+$app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($idcategory, $idproduct){ // removendo da categoria com base no :idcategory
 
 	User::verifyLogin();
 

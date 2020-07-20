@@ -40,7 +40,7 @@ $app->get("/admin/products", function(){  // paginação
 
 	$page = new PageAdmin();
 
-	$page->setTpl("products", [
+	$page->setTpl("products", [ // Template 
 		"products"=>$pagination['data'],
 		"search"=>$search,
 		"pages"=>$pages
@@ -54,11 +54,11 @@ $app->get("/admin/products/create", function(){ // rota pagina de criação
 
 	$page = new PageAdmin();
 
-	$page->setTpl("products-create");
+	$page->setTpl("products-create"); // Template
 
 });
 // ================================================================================================================
-$app->post("/admin/products/create", function(){
+$app->post("/admin/products/create", function(){ // rota salvando produto
 
 	User::verifyLogin();
 
@@ -83,13 +83,13 @@ $app->get("/admin/products/:idproduct", function($idproduct){ // editar produto
 
 	$page = new PageAdmin();
 
-	$page->setTpl("products-update", [
+	$page->setTpl("products-update", [ // Template
 		'product'=>$product->getValues()
 	]);
 
 });
 // ================================================================================================================
-$app->post("/admin/products/:idproduct", function($idproduct){ // Atualiza produto
+$app->post("/admin/products/:idproduct", function($idproduct){ // Atualizar produto
 
 	User::verifyLogin();
 

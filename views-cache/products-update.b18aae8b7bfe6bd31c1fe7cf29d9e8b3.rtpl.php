@@ -17,7 +17,7 @@
           <h3 class="box-title">Editar Produto</h3>
         </div>
         <!-- /.box-header -->
-        <!-- form start -->
+        <!-- form start ------------------------------------------------------------------------------------------------------------------------------------------------------->
         <form role="form" action="/admin/products/<?php echo htmlspecialchars( $product["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post" enctype="multipart/form-data"> <!-- id dinâmico -->
           <div class="box-body">
             <div class="form-group">

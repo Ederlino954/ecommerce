@@ -76,7 +76,7 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public function checkPhoto()
+	public function checkPhoto() // verificando se existe ou não foto 
 	{
 
 		if (file_exists( // Caminho das imagens // sistema operacioanal
@@ -88,11 +88,11 @@ class Product extends Model {
 			$this->getidproduct() . ".jpg"
 			)) {
 
-			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg"; // url
+			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg"; 
 
 		} else {
 
-			$url = "/res/site/img/product.jpg"; // foto padrão retornada 
+			$url = "/res/site/img/product.jpg"; // foto padrão retornada // imagem base padrão!
 
 		}
 
@@ -100,10 +100,10 @@ class Product extends Model {
 
 	}
 	//====================================================================================================================================================
-	public function getValues()
+	public function getValues() // mesma função da classe pai
 	{
 
-		$this->checkPhoto();
+		$this->checkPhoto(); // verificando se tem ou não foto o produto!
 
 		$values = parent::getValues(); // no model, classa pai 
 
@@ -114,7 +114,7 @@ class Product extends Model {
 	public function setPhoto($file) // upload do arquivo
 	{
 
-		$extension = explode('.', $file['name']); // explodindo arquivo
+		$extension = explode('.', $file['name']); // explodindo arquivo com base no ponto 
 		$extension = end($extension); // pegando a ultima porte do arquivo, extensão
 
 		switch ($extension) {

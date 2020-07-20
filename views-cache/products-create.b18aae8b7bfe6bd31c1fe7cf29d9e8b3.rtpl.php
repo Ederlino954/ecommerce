@@ -22,7 +22,7 @@
           <h3 class="box-title">Novo Produto</h3>
         </div>
         <!-- /.box-header -->
-        <!-- form start -->
+        <!-- form start ------------------------------------------------------------------------------------------------------------------------------------------->
         <form role="form" action="/admin/products/create" method="post">
           <div class="box-body">
             <div class="form-group">

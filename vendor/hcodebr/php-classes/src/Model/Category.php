@@ -8,7 +8,7 @@ use \Hcode\Mailer;
 
 class Category extends Model {
 	//=======================================================================================================
-	public static function listAll()
+	public static function listAll() // static para ser chado só internamente
 	{
 
 		$sql = new Sql();
@@ -29,7 +29,7 @@ class Category extends Model {
 
 		$this->setData($results[0]); // método seters e geters 
 
-		Category::updateFile();
+		Category::updateFile(); // atualizando o arquivo categories-menu.html // lista dinâmica --------------------------------------------------->>>>>
 
 	}
 	//=======================================================================================================
@@ -55,21 +55,21 @@ class Category extends Model {
 			':idcategory'=>$this->getidcategory() // sem a variação por isso usar $this
 		]);
 
-		Category::updateFile();
+		Category::updateFile(); // atualizando o arquivo categories-menu.html // lista dinâmica --------------------------------------------------->>>>>
 
 	}
 	//=======================================================================================================
-	public static function updateFile() // atualizando o arquivo categories-menu.html
+	public static function updateFile() // atualizando o arquivo categories-menu.html // lista dinâmica --------------------------------------------------->>>>>
 	{
 
 		$categories = Category::listAll();
 
 		$html = [];
-
+		// criando as listas de categorias no footer 
 		foreach ($categories as $row) {
 			array_push($html, '<li><a href="/categories/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>');
 		}
-
+		// salvando o arquivo!
 		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));// implode transformando o array em string
 
 	}
@@ -79,7 +79,7 @@ class Category extends Model {
 
 		$sql = new Sql();
 
-		if ($related === true) { // os que estão relacionados IN()
+		if ($related === true) { // os que estão relacionados IN()----------------------------------------------------------------------------------
 
 			return $sql->select("
 				SELECT * FROM tb_products WHERE idproduct IN( 
@@ -89,10 +89,10 @@ class Category extends Model {
 					WHERE b.idcategory = :idcategory
 				);
 			", [
-				':idcategory'=>$this->getidcategory()
+				':idcategory'=>$this->getidcategory() // id que está no próprio objeto instanciado!
 			]);
 
-		} else { // os que não estão relacionandos NOT IN()
+		} else { // os que não estão relacionandos NOT IN()------------------------------------------------------------------------------
 
 			return $sql->select("
 				SELECT * FROM tb_products WHERE idproduct NOT IN(
@@ -102,7 +102,7 @@ class Category extends Model {
 					WHERE b.idcategory = :idcategory
 				);
 			", [
-				':idcategory'=>$this->getidcategory()
+				':idcategory'=>$this->getidcategory() // id que está no próprio objeto instanciado!
 			]);
 
 		}
@@ -112,7 +112,7 @@ class Category extends Model {
 	public function getProductsPage($page = 1, $itemsPerPage = 8) // paginação!
 	{
 
-		$start = ($page - 1) * $itemsPerPage;
+		$start = ($page - 1) * $itemsPerPage; /// para iniciar no índice 0
 
 		$sql = new Sql();
 

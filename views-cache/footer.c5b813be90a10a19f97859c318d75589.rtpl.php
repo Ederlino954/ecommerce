@@ -29,7 +29,7 @@
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">Categorias</h2>
                         <ul>
-                            <?php require $this->checkTemplate("categories-menu");?> <!-- categoria criadas dinamicamente  htmol na view-->
+                            <?php require $this->checkTemplate("categories-menu");?> <!-- categoria criadas dinamicamente  html na view  -------------------->
                         </ul>                        
                     </div>
                 </div>

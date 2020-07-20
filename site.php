@@ -9,14 +9,14 @@ use \Hcode\Model\User;
 use \Hcode\Model\Order;
 use \Hcode\Model\OrderStatus;
 // ================================================================================================================
-$app->get('/', function() {
+$app->get('/', function() { 
 
-	$products = Product::listAll();
+	$products = Product::listAll(); // Listando produtos 
 
 	$page = new Page();
 
-	$page->setTpl("index", [
-		'products'=>Product::checkList($products)
+	$page->setTpl("index", [ // template
+		'products'=>Product::checkList($products) // checando os produtos
 	]);
 
 });
@@ -29,13 +29,13 @@ $app->get("/categories/:idcategory", function($idcategory){ // visualizando as c
 
 	$category->get((int)$idcategory);
 
-	$pagination = $category->getProductsPage($page); // Paginação 
+	$pagination = $category->getProductsPage($page); // Paginação // na escolha do usuário pode ser passado por get no número de páginas como segundo parâmetro
 
 	$pages = [];
 
 	for ($i=1; $i <= $pagination['pages']; $i++) { 
 		array_push($pages, [
-			'link'=>'/categories/'.$category->getidcategory().'?page='.$i,
+			'link'=>'/categories/'.$category->getidcategory().'?page='.$i,// link de paginação
 			'page'=>$i
 		]);
 	}
