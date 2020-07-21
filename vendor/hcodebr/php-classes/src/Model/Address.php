@@ -23,18 +23,18 @@ class Address extends Model {
 
 		$data = json_decode(curl_exec($ch), true);
 
-		curl_close($ch);
+		curl_close($ch); // fechando ponteiro por causa de memória 
 
 		return $data;
 
 	}
 	// ==============================================================================================
-	public function loadFromCEP($nrcep)
+	public function loadFromCEP($nrcep) // usando o $this 
 	{
 
 		$data = Address::getCEP($nrcep);
 
-		if (isset($data['logradouro']) && $data['logradouro']) { // validações 
+		if (isset($data['logradouro']) && $data['logradouro']) { // validações se existe e não é vazio
 
 			$this->setdesaddress($data['logradouro']);
 			$this->setdescomplement($data['complemento']);

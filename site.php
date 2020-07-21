@@ -154,7 +154,7 @@ $app->get("/checkout", function(){ // login usuário
 
 	}
 
-	if (isset($_GET['zipcode'])) {
+	if (isset($_GET['zipcode'])) { // se cep enviado!
 
 		$address->loadFromCEP($_GET['zipcode']);
 
@@ -180,7 +180,7 @@ $app->get("/checkout", function(){ // login usuário
 	$page->setTpl("checkout", [  // template 
 		'cart'=>$cart->getValues(),
 		'address'=>$address->getValues(),
-		'products'=>$cart->getProducts(),
+		'products'=>$cart->getProducts(), // carrinho de compras 
 		'error'=>Address::getMsgError()
 	]);
 
@@ -191,7 +191,7 @@ $app->post("/checkout", function(){
 	User::verifyLogin(false); // não é aADM
 
 	if (!isset($_POST['zipcode']) || $_POST['zipcode'] === '') {
-		Address::setMsgError("Informe o CEP.");
+		Address::setMsgError("Informe o CEP."); // erros em Adress por causa de possíveis conflitos de classe 
 		header('Location: /checkout');
 		exit;
 	}
@@ -226,7 +226,7 @@ $app->post("/checkout", function(){
 		exit;
 	}
 
-	$user = User::getFromSession();
+	$user = User::getFromSession(); // usuario logado!
 
 	$address = new Address();
 
@@ -627,13 +627,13 @@ $app->get("/boleto/:idorder", function($idorder){
 // ================================================================================================================
 $app->get("/profile/orders", function(){
 
-	User::verifyLogin(false); // não aADM
+	User::verifyLogin(false); // não é ADM
 
 	$user = User::getFromSession(); // Carrinho de compras
 
 	$page = new Page();
 
-	$page->setTpl("profile-orders", [
+	$page->setTpl("profile-orders", [ // Template
 		'orders'=>$user->getOrders()
 	]);
 

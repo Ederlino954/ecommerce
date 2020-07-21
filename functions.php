@@ -35,7 +35,7 @@ function getUserName()
 
 }
 // ==============================================================================
-function getCartNrQtd() // Carrinho visualização 
+function getCartNrQtd() // Carrinho visualização nas páginas do site 
 {
 
 	$cart = Cart::getFromSession();
