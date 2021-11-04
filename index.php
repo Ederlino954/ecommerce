@@ -68,7 +68,7 @@ $app->get("/admin/users", function() {
 	$page = new PageAdmin();
 
 	$page->setTpl("users", array(
-		"users"=>$users
+		'users'=>$users
 	));
 
 });
@@ -109,7 +109,7 @@ $app->get("/admin/users/:iduser", function($iduser) {
 	$page = new PageAdmin();
 
 	$page->setTpl("users-update", array(
-		"user"=>$user->getValues()
+		'user'=>$user->getValues()
 	));
 
 });
@@ -312,6 +312,21 @@ $app->post("/admin/categories/:idcategory", function($idcategory) {
 
 	header("Location: /admin/categories");
 	exit;
+
+});
+
+$app->get("/categories/:idcategory", function($idcategory) {	
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);
+
+	$page = new Page();
+
+	$page->setTpl("category", [
+		'category'=>$category->getValues(),
+		'products'=>[]
+	]);
 
 });
 
