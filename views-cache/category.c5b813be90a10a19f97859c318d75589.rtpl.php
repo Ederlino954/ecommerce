@@ -1,4 +1,19 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><div class="product-big-title-area">
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
+
+ 
+
+<!-- ------------------------------------Link perdido ao montar pagina do item da categ----------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------- TESTE ACIMA ---------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+<div class="product-big-title-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -14,7 +29,7 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <?php $counter1=-1;  if( isset(produtos) && ( is_array(produtos) || produtos instanceof Traversable ) && sizeof(produtos) ) foreach( produtos as $key1 => $value1 ){ $counter1++; ?>
+            <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
 
                 <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
@@ -60,3 +75,14 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------- TESTE ABAIXO---------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------- -->
+
