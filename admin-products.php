@@ -36,7 +36,7 @@ $app->post("/admin/products/create", function() {
 
     $product->setData($_POST);    
 
-    $product->save(); // metodo dando erro - verificar posteriormente 
+    $product->save(); // metodo dando erro // questão de caracteres, não salva quando são muitos -- validar mínimo e máximo de caracteres
 
     header("Location: /admin/products");
     exit;

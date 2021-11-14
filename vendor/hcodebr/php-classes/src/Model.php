@@ -1,48 +1,50 @@
-<?php
+<?php 
 
 namespace Hcode;
 
 class Model {
 
-    private $values = [];
+	private $values = [];
 
-    public function __call( $name, $args)
-    {
-        
-        $method = substr($name, 0, 3);
-        $fieldName = substr($name, 3, strlen($name));
+	public function __call($name, $args)
+	{
 
-        switch ($method)
-        {
+		$method = substr($name, 0, 3);
+		$fieldName = substr($name, 3, strlen($name));
 
-            case "get":
-                return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL;
-            break;
-            
-            case "set":
-                 $this->values[$fieldName] = $args[0];
-            break;
+		switch ($method)
+		{
 
-        }        
-        
-    }
+			case "get":
+				return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL;
+			break;
 
-    public function setData($data = array())
-    {
-        
-        foreach ($data as $key => $value) {
+			case "set":
+				$this->values[$fieldName] = $args[0];
+			break;
 
-            $this->{"set".$key}($value);
+		}
 
-        }
+	}
 
-    }
+	public function setData($data = array())
+	{
 
-    public function getValues()
-    {
-        return $this->values;
-    }
+		foreach ($data as $key => $value) {
+			
+			$this->{"set".$key}($value);
+
+		}
+
+	}
+
+	public function getValues()
+	{
+
+		return $this->values;
+
+	}
 
 }
 
-?>
+ ?>

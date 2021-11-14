@@ -16,26 +16,41 @@ class Product extends Model {
         return $sql->select("SELECT * FROM tb_products ORDER BY desproduct");
 
     }   
-    
-    public function save()
+
+    public static function checkList($list)
     {
 
-        $sql = new Sql();
+        foreach ($list as &$row) { //& manipula a mesma variável na memória
 
-        $results = $sql->select("CALL sp_products_save(:idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, :vllength, :vlweight, :desurl)", array(
-            ":idproduct"=>$this->getidproduct(),
-            ":desproduct"=>$this->getdesproduct(),            
-            ":vlprice"=>$this->getvlprice(),            
-            ":vlwidth"=>$this->getvlwidth(),            
-            ":vlheight"=>$this->getvlheight(),            
-            ":vllength"=>$this->getvllength(),            
-            ":vlweight"=>$this->getvlweight(),            
-            ":desurl"=>$this->getdesurl()            
-        ));
-       
-        $this->setData($results[0]);        
+            $p = new Product();
+            $p->setData($row);
+            $row = $p->getValues();
+           
+        }
 
-    }
+        return $list;
+
+    }    
+    
+    public function save()
+	{
+
+		$sql = new Sql();
+
+		$results = $sql->select("CALL sp_products_save(:idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, :vllength, :vlweight, :desurl)", array(
+			":idproduct"=>$this->getidproduct(),
+			":desproduct"=>$this->getdesproduct(),
+			":vlprice"=>$this->getvlprice(),
+			":vlwidth"=>$this->getvlwidth(),
+			":vlheight"=>$this->getvlheight(),
+			":vllength"=>$this->getvllength(),
+			":vlweight"=>$this->getvlweight(),
+			":desurl"=>$this->getdesurl()
+		));
+
+		$this->setData($results[0]);
+
+	}
 
     public function get($idproduct)
     {
@@ -109,11 +124,11 @@ class Product extends Model {
                 break;            
 
             case 'gif':
-                $image = imagecreatefromgif($file["t"]);
+                $image = imagecreatefromgif($file["tmp_name"]);
                 break;
 
             case 'png':
-                $image = imagecreatefrompng($file["t"]);
+                $image = imagecreatefrompng($file["tmp_name"]);
                 break; 
             
         }
