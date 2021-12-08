@@ -243,11 +243,13 @@ class User extends Model {
 
 				if ($inadmin === true) {
 
-					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+					// $link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+					$link = "http://127.0.0.1:81/admin/forgot/reset?code=$code"; // para teste
 
 				} else {
 
-					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
+					// $link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
+					$link = "http://127.0.0.1:81/forgot/reset?code=$code"; // para teste
 					
 				}				
 
