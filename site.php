@@ -464,7 +464,7 @@ $app->post("/profile", function() {
 
 	$user->setData($_POST);
 
-	$user->update();
+	$user->updateAccount(); // ok Atualizando sem mudar a senha
 
 	User::setSuccess("Dados atualizados com sucesso!");
 	
